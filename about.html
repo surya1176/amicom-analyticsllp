@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us – AMICOM Analytics</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .team-card-full {
+      background: white; border: 1px solid var(--border); border-radius: 12px;
+      padding: 2.5rem; display: flex; gap: 2rem; align-items: flex-start;
+      transition: all 0.25s;
+    }
+    .team-card-full:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
+    .team-avatar-lg {
+      width: 100px; height: 100px; border-radius: 50%; flex-shrink: 0;
+      display: flex; align-items: center; justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 2.2rem; font-weight: 700; color: white;
+    }
+    .team-info h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
+    .team-role { font-size: 0.82rem; color: var(--green); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
+    .team-bio { font-size: 0.875rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
+    .team-awards { margin-top: 0.8rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+    .award-badge {
+      background: var(--light-bg); border: 1px solid var(--border);
+      padding: 0.2rem 0.6rem; border-radius: 4px;
+      font-size: 0.72rem; color: var(--green-dark); font-weight: 500;
+    }
+    @media (max-width: 700px) { .team-card-full { flex-direction: column; } }
+
+    .vision-card {
+      border-left: 4px solid var(--green); padding: 1.5rem;
+      background: var(--light-bg); border-radius: 0 8px 8px 0; margin-bottom: 1rem;
+    }
+    .vision-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
+
+    .model-row {
+      display: flex; align-items: stretch; gap: 0; margin: 2.5rem 0;
+      border-radius: 10px; overflow: hidden;
+    }
+    .model-box { flex: 1; padding: 2rem; text-align: center; }
+    .model-box:nth-child(1) { background: var(--green-dark); }
+    .model-box:nth-child(3) { background: var(--green); }
+    .model-box:nth-child(5) { background: var(--green-mid); }
+    .model-box:nth-child(2),
+    .model-box:nth-child(4) { background: var(--accent); display:flex; align-items:center; justify-content:center; flex:0 0 40px; }
+    .model-box h4 { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 0.4rem; }
+    .model-box p { font-size: 1rem; font-weight: 600; color: white; }
+    .model-arrow-txt { font-size: 1.2rem; color: white; font-weight: 700; }
+    @media(max-width:600px) { .model-row { flex-direction:column; } .model-box:nth-child(2),.model-box:nth-child(4){flex:0 0 30px;} }
+
+    .quality-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
+    @media(max-width:700px) { .quality-grid { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:450px) { .quality-grid { grid-template-columns: 1fr; } }
+    .quality-item {
+      display: flex; align-items: flex-start; gap: 0.8rem;
+      padding: 1.2rem; background: white; border: 1px solid var(--border); border-radius: 8px;
+    }
+    .quality-check {
+      width: 28px; height: 28px; background: var(--green); border-radius: 50%;
+      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+    }
+    .quality-check svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2.5; }
+    .quality-item p { font-size: 0.84rem; color: var(--gray); line-height: 1.5; font-weight: 400; }
+
+    /* Logo image in nav */
+    .nav-logo-img {
+      height: 44px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+<img src="amicom-logo.jpeg" alt="AMICOM Logo" style="height:44px; width:auto;"/>
+    <div>
+      <span class="nav-logo-text">AMICOM<span>.</span></span>
+      <span class="nav-logo-sub">Analytics</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="career.html">Career</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<div class="page-hero">
+  <div class="page-hero-content">
+    <p class="section-label light" style="margin-bottom:1rem;">About AMICOM</p>
+    <h1>Driven by Science,<br/><em>Committed to Quality</em></h1>
+    <p>AMICOM Analytics LLP — a specialized analytical and biopharma services organization built on trust, technical excellence, and regulatory compliance.</p>
+  </div>
+</div>
+
+<!-- VISION & MISSION -->
+<section class="section fade-up" id="vision">
+  <div class="grid-2" style="gap:4rem; align-items:flex-start;">
+    <div>
+      <p class="section-label">Vision &amp; Mission</p>
+      <h2 class="section-title">Our Purpose &amp; Values</h2>
+      <div style="margin-top:1.5rem;">
+        <div class="vision-card">
+          <p>AMICOM is dedicated to building a strong customer relationship based on <strong>Trust</strong>.</p>
+        </div>
+        <div class="vision-card">
+          <p>We are committed to staying ahead of the curve when it comes to testing methods and capabilities. AMICOM Analytics strives to maintain <strong>technical excellence</strong> by using the most advanced technology in our testing methods and instrumentation for specialty studies — including offering consultancy services.</p>
+        </div>
+        <div class="vision-card">
+          <p>We are proud to provide a <strong>swift turnaround</strong> of test results to all our valued customers.</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <p class="section-label">Quality &amp; Compliance</p>
+      <h2 class="section-title">Our Commitment</h2>
+      <div class="quality-grid" style="margin-top:1.5rem;">
+        <div class="quality-item">
+          <div class="quality-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <p>Compliance with global GMP and GLP expectations</p>
+        </div>
+        <div class="quality-item">
+          <div class="quality-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <p>Regulatory-aligned documentation and reporting</p>
+        </div>
+        <div class="quality-item">
+          <div class="quality-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <p>Data integrity and traceability systems</p>
+        </div>
+        <div class="quality-item">
+          <div class="quality-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <p>Audit-ready quality management framework</p>
+        </div>
+        <div class="quality-item">
+          <div class="quality-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <p>Confidential and secure data handling</p>
+        </div>
+        <div class="quality-item">
+          <div class="quality-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
+          <p>WHO, CDSCO, FDA, EMA aligned standards</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BUSINESS MODEL -->
+<section class="section section-alt fade-up" id="model">
+  <div style="text-align:center; max-width:580px; margin:0 auto 2rem;">
+    <p class="section-label">How We Work</p>
+    <h2 class="section-title">Our Business Model &amp; Relationships</h2>
+    <p class="section-sub" style="margin:0 auto;">Our business relations are built on ethics-driven, strong trust-based and transparent partnerships with long-term collaborations, scientific excellence, and regulatory compliance — ensuring reliable analytical and biopharma services that consistently meet global quality.</p>
+  </div>
+  <div class="model-row">
+    <div class="model-box"><h4>Step 1</h4><p>Understanding Scientific Needs</p></div>
+    <div class="model-box"><span class="model-arrow-txt">→</span></div>
+    <div class="model-box"><h4>Step 2</h4><p>Trusted Partnership</p></div>
+    <div class="model-box"><span class="model-arrow-txt">→</span></div>
+    <div class="model-box"><h4>Step 3</h4><p>Quality Outcomes</p></div>
+  </div>
+  <p class="section-sub" style="text-align:center; margin:0 auto;">We understand the scientific needs of our customers, build trusted partnerships and collaborations, and deliver quality outcomes for every project.</p>
+</section>
+
+<!-- TEAM -->
+<section class="section fade-up" id="team">
+  <div style="text-align:center; max-width:560px; margin:0 auto 3rem;">
+    <p class="section-label">Our People</p>
+    <h2 class="section-title">Management Team</h2>
+  </div>
+  <div style="display:flex; flex-direction:column; gap:1.5rem;">
+
+    <div class="team-card-full fade-up">
+      <div class="team-avatar-lg" style="background:linear-gradient(135deg,#3d6b4f,#1e3d2a);">SR</div>
+      <div class="team-info">
+        <h3>Dr. Sri Rama Krishna Surapureddi, Ph.D.</h3>
+        <div class="team-role">Co-Founder &amp; Director – Operations</div>
+        <p class="team-bio">Dr. Sri Rama Krishna is a scientific leader with over <strong>25 years of experience in Analytical R&amp;D and Quality Control</strong> in the area of small and large molecules, peptides, bio-therapeutics and Non-Biological Complex Drugs. He developed his expertise at leading organizations including <strong>Daicel Chiral Technologies, VIMTA Labs, Sai Life Sciences, NIC, and AVRA Labs</strong>. Dr. RK holds a Ph.D. in Chemistry.<br/><br/>Dr. RK has rich experience handling large teams involved in initiating and driving collaborations, catering to analytical requirements from lead optimization to synthesis of reference compounds. He played a stellar role in designing and delivering custom-made services to customers, strengthening customer relations for increased business value proposition.</p>
+        <div class="team-awards">
+          <span class="award-badge">Excellence in Research Award – KL University (2025)</span>
+          <span class="award-badge">ELITE Award – VIMTA Labs (2018)</span>
+          <span class="award-badge">Daicel Diamond Awards for Innovation (2023–24, 2024–25)</span>
+          <span class="award-badge">External Board of Studies Member – KL University</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="team-card-full fade-up fade-up-delay-1">
+      <div class="team-avatar-lg" style="background:linear-gradient(135deg,#4e8a65,#3d6b4f);">SY</div>
+      <div class="team-info">
+        <h3>Dr. Sanjeeva Yakarla, Ph.D.</h3>
+        <div class="team-role">Co-Founder &amp; Director – Techno Commercial &amp; Business Development</div>
+        <p class="team-bio">Dr. Sanjeeva is an analytical science and techno-commercial leader with over <strong>23 years of experience</strong> across leading multinational organizations including <strong>Dr. Reddy's Laboratories, ISP India, Ashland Pharma, and the United States Pharmacopeia</strong>. He holds a <strong>Ph.D. in Chemistry</strong>.<br/><br/>Dr. Sanjeeva brings deep expertise in analytical method development and testing for APIs, pharmaceutical formulations, specialty ingredients, and polymers. He has played a key role in techno-commercial leadership, engaging pharmaceutical customers across India, delivering technical presentations, and supporting laboratory testing solutions, project execution, logistics, and timelines. He has successfully managed and delivered small and complex molecule and peptide projects using diverse analytical methodologies.</p>
+      </div>
+    </div>
+
+    <div class="team-card-full fade-up fade-up-delay-2">
+      <div class="team-avatar-lg" style="background:linear-gradient(135deg,#c9a84c,#a07830);">AV</div>
+      <div class="team-info">
+        <h3>Dr. A. Venkateshwarlu, Ph.D.</h3>
+        <div class="team-role">Head, Quality Management System &amp; Safety</div>
+        <p class="team-bio">Dr. Venkateshwarlu is a Senior Pharmaceutical Quality and Regulatory Affairs leader with over <strong>30 years of experience</strong> in GLP and cGMP compliance, QA/QC systems, and global regulatory inspections including US FDA, EU, and WHO GMP. He holds a Ph.D. in Chemistry and is a <strong>Certified IRCA QMS and EHS Lead Auditor (BVQI/BVC)</strong> with extensive GLP/GMP and DUNS audit expertise.<br/><br/>Dr. Venkateshwarlu has led end-to-end QA, QC, and Regulatory Affairs operations, established new laboratory setups and GMP manufacturing facilities for APIs and intermediates, and institutionalized robust quality systems across R&amp;D, CRAMS, custom synthesis, and commercial manufacturing. He has also managed regulatory filings (DMF and ANDA) for advanced intermediates and APIs.</p>
+      </div>
+    </div>
+
+    <div class="team-card-full fade-up fade-up-delay-3">
+      <div class="team-avatar-lg" style="background:linear-gradient(135deg,#254235,#3d6b4f);">PC</div>
+      <div class="team-info">
+        <h3>Dr. Prashanth Chiliveri, Ph.D.</h3>
+        <div class="team-role">Head, Technical</div>
+        <p class="team-bio">Dr. Prashanth Chiliveri is a Senior Analytical and Biopharma expert with <strong>15 years of extensive experience</strong> across biomedical research, bio-therapeutics characterization, and regulated CRO environments. He holds a Ph.D. from Osmania University, and completed his postdoc from <strong>Kyung Hee University, South Korea</strong>.<br/><br/>Dr. Chiliveri has worked with reputed organizations including Daicel Chiral Technologies, VIMTA Labs, National Cancer Center–Korea, and Mahavir Hospital and Research Centre. His technical expertise spans analytical method development and validation, characterization of drug substances and drug products (peptides and proteins), and NBCD drug characterization. He is widely recognized for his cross-functional management, scientific problem-solving, and customer-facing technical support in biologics and biopharma.</p>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">AMICOM<span>.</span></div>
+      <p>AMICOM Analytics LLP is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for biologics and NBCDs.</p>
+      <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="career.html">Career</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html#analytical">Analytical &amp; Testing</a></li>
+        <li><a href="services.html#nbcd">NBCD / IVBE</a></li>
+        <li><a href="services.html#biosimilar">Biosimilar Characterization</a></li>
+        <li><a href="services.html#bioprocess">Bioprocess Impurities</a></li>
+        <li><a href="services.html#el">Extractables &amp; Leachables</a></li>
+        <li><a href="services.html#nitrosamines">Nitrosamines &amp; NDSRIs</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@amicomanalytics.com">info@amicomanalytics.com</a></li>
+        <li><a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="footer-year"></span> AMICOM Analytics LLP. All Rights Reserved.</span>
+    <span>GMP · GLP · ICH Compliant</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>

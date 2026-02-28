@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Career – AMICOM Analytics</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .career-intro { background: var(--light-bg); padding: 50px 5%; }
+    .career-values { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; margin-top: 2.5rem; }
+    @media(max-width:700px) { .career-values { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:480px) { .career-values { grid-template-columns: 1fr; } }
+    .val-card { padding: 1.8rem; background: white; border-radius: 10px; border: 1px solid var(--border); text-align: center; }
+    .val-icon { font-size: 2rem; margin-bottom: 0.8rem; }
+    .val-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .val-card p { font-size: 0.82rem; color: var(--gray-light); line-height: 1.6; }
+
+    .form-card {
+      max-width: 720px; margin: 0 auto;
+      background: white; border: 1px solid var(--border); border-radius: 14px;
+      padding: 3rem; box-shadow: 0 8px 40px rgba(0,0,0,0.06);
+    }
+    .form-section-title {
+      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
+      color: var(--green); font-weight: 600; margin: 1.8rem 0 1rem;
+      display: flex; align-items: center; gap: 0.6rem;
+    }
+    .form-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+    .grid-2-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    @media(max-width:560px) { .grid-2-form { grid-template-columns: 1fr; } .form-card { padding: 2rem; } }
+
+    .domain-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+    .domain-tag {
+      display: flex; align-items: center; gap: 0.4rem;
+      border: 1px solid var(--border); border-radius: 6px;
+      padding: 0.4rem 0.8rem; cursor: pointer; font-size: 0.8rem; color: var(--gray);
+      transition: all 0.2s; user-select: none;
+    }
+    .domain-tag:hover { border-color: var(--green); color: var(--green); }
+    .domain-tag input { display: none; }
+    .domain-tag.selected { background: var(--green); color: white; border-color: var(--green); }
+
+    .file-upload-zone {
+      border: 2px dashed var(--border); border-radius: 8px;
+      padding: 1.5rem; text-align: center; cursor: pointer; transition: all 0.2s;
+    }
+    .file-upload-zone:hover { border-color: var(--green); background: rgba(61,107,79,0.03); }
+    .file-upload-zone p { font-size: 0.84rem; color: var(--gray-light); }
+    .file-upload-zone .upload-icon { font-size: 1.8rem; margin-bottom: 0.4rem; }
+    .file-name { font-size: 0.8rem; color: var(--green); margin-top: 0.4rem; display: none; }
+
+    .submit-success {
+      display: none; text-align: center; padding: 3rem 2rem;
+    }
+    .submit-success .check { font-size: 3rem; margin-bottom: 1rem; }
+    .submit-success h3 { font-size: 1.3rem; margin-bottom: 0.5rem; }
+    .submit-success p { font-size: 0.9rem; color: var(--gray-light); }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+<img src="amicom-logo.jpeg" alt="AMICOM Logo" style="height:44px; width:auto;"/>
+    <div>
+      <span class="nav-logo-text">AMICOM<span>.</span></span>
+      <span class="nav-logo-sub">Analytics</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="career.html">Career</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <p class="section-label light" style="margin-bottom:1rem;">Join Our Team</p>
+    <h1>Build Your Career<br/>with <em>AMICOM Analytics</em></h1>
+    <p>AMICOM is driven by scientific excellence and is committed to building a culture of quality, integrity, and innovation. We are looking for motivated and innovative scientific minds to work collaboratively in a high-quality, research-driven environment.</p>
+  </div>
+</div>
+
+<!-- VALUES -->
+<div class="career-intro fade-up">
+  <div style="max-width:600px; margin:0 auto 0; text-align:center;">
+    <p class="section-label" style="justify-content:center;">Why Join Us</p>
+    <h2 class="section-title">What We Offer</h2>
+    <p class="section-sub" style="margin:0 auto;">We offer ample opportunities to learn and strengthen skills across diverse scientific domains with structured, growth-oriented career paths.</p>
+  </div>
+  <div class="career-values">
+    <div class="val-card">
+      <div class="val-icon">🔬</div>
+      <h4>Scientific Excellence</h4>
+      <p>Work with cutting-edge analytical instruments and methodologies in a stimulating research environment.</p>
+    </div>
+    <div class="val-card">
+      <div class="val-icon">📈</div>
+      <h4>Growth &amp; Development</h4>
+      <p>Structured career progression with continuous learning opportunities across diverse scientific domains.</p>
+    </div>
+    <div class="val-card">
+      <div class="val-icon">🌍</div>
+      <h4>Global Standards</h4>
+      <p>Exposure to international regulatory frameworks — FDA, EMA, WHO — and global project experience.</p>
+    </div>
+    <div class="val-card">
+      <div class="val-icon">🤝</div>
+      <h4>Collaborative Culture</h4>
+      <p>A quality-driven, innovation-first culture where your contributions genuinely matter.</p>
+    </div>
+    <div class="val-card">
+      <div class="val-icon">🏆</div>
+      <h4>Impactful Work</h4>
+      <p>Contribute directly to life-saving drug characterization and regulatory approvals.</p>
+    </div>
+    <div class="val-card">
+      <div class="val-icon">⚡</div>
+      <h4>Dynamic Environment</h4>
+      <p>Fast-paced, challenging projects across biologics, NBCDs, E&amp;L, nitrosamines, and more.</p>
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATION FORM -->
+<section class="section fade-up">
+  <div style="text-align:center; max-width:520px; margin:0 auto 3rem;">
+    <p class="section-label" style="justify-content:center;">Apply Now</p>
+    <h2 class="section-title">Submit Your Application</h2>
+  </div>
+  <div class="form-card" id="app-form-wrapper">
+    <form id="career-form" onsubmit="handleCareerSubmit(event)">
+
+      <div class="form-section-title">Candidate Details</div>
+      <div class="grid-2-form">
+        <div class="form-group">
+          <label class="form-label">Full Name *</label>
+          <input type="text" class="form-input" placeholder="Your full name" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Age</label>
+          <input type="number" class="form-input" placeholder="Your age" min="18" max="70"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Email Address *</label>
+          <input type="email" class="form-input" placeholder="you@example.com" required/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Phone Number *</label>
+          <input type="tel" class="form-input" placeholder="+91 XXXXXXXXXX" required/>
+        </div>
+      </div>
+
+      <div class="form-section-title">Professional Details</div>
+      <div class="grid-2-form">
+        <div class="form-group">
+          <label class="form-label">Total Experience (years)</label>
+          <input type="number" class="form-input" placeholder="e.g. 5" min="0"/>
+        </div>
+        <div class="form-group">
+          <label class="form-label">Current Organization (Optional)</label>
+          <input type="text" class="form-input" placeholder="Company name"/>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:0.5rem;">
+        <label class="form-label">Current / Preferred Work Domain (Select all that apply)</label>
+        <div class="domain-tags">
+          <label class="domain-tag"><input type="checkbox" value="Analytical Testing – Small Molecules"/>Analytical Testing – Small Molecules</label>
+          <label class="domain-tag"><input type="checkbox" value="Biosimilar / Biologics Characterization"/>Biosimilar / Biologics Characterization</label>
+          <label class="domain-tag"><input type="checkbox" value="Impurity Profiling & Stability"/>Impurity Profiling &amp; Stability</label>
+          <label class="domain-tag"><input type="checkbox" value="Extractables & Leachables"/>Extractables &amp; Leachables</label>
+          <label class="domain-tag"><input type="checkbox" value="Nitrosamines & NDSRIs"/>Nitrosamines &amp; NDSRIs</label>
+          <label class="domain-tag"><input type="checkbox" value="NBCD Analysis / IVBE"/>NBCD Analysis / IVBE</label>
+          <label class="domain-tag"><input type="checkbox" value="Quality Assurance / Regulatory"/>QA / Regulatory Support</label>
+          <label class="domain-tag"><input type="checkbox" value="Facility & Safety"/>Facility &amp; Safety</label>
+          <label class="domain-tag"><input type="checkbox" value="Others"/>Others</label>
+        </div>
+      </div>
+
+      <div class="form-section-title">Upload Resume</div>
+      <div class="form-group">
+        <div class="file-upload-zone" onclick="document.getElementById('cv-upload').click()">
+          <div class="upload-icon">📄</div>
+          <p>Click to upload your CV / Resume<br/><span style="font-size:0.75rem; color:var(--border);">PDF or DOC, max 5 MB</span></p>
+          <div class="file-name" id="file-name-display"></div>
+        </div>
+        <input type="file" id="cv-upload" style="display:none;" accept=".pdf,.doc,.docx" onchange="showFileName(this)"/>
+      </div>
+
+      <div class="form-section-title">Declaration</div>
+      <div class="form-group">
+        <label class="form-checkbox">
+          <input type="checkbox" required/>
+          I confirm that the information provided is accurate and complete.
+        </label>
+      </div>
+
+      <div id="career-error" style="display:none; background:#fff0f0; border:1px solid #f5c0c0; color:#c0392b; padding:0.75rem 1rem; border-radius:6px; font-size:0.84rem; margin-bottom:0.8rem;"></div>
+      <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; margin-top:0.5rem; padding:1rem;">
+        Submit Application →
+      </button>
+    </form>
+
+    <div class="submit-success" id="career-success">
+      <div class="check">✅</div>
+      <h3>Application Submitted!</h3>
+      <p>Thank you for your interest in joining AMICOM Analytics. Our HR team will review your application and reach out to you soon.</p>
+      <a href="index.html" class="btn btn-outline" style="margin-top:1.5rem; display:inline-flex;">Back to Home</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">AMICOM<span>.</span></div>
+      <p>AMICOM Analytics LLP is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for biologics and NBCDs.</p>
+      <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="career.html">Career</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="services.html#analytical">Analytical &amp; Testing</a></li>
+        <li><a href="services.html#nbcd">NBCD / IVBE</a></li>
+        <li><a href="services.html#biosimilar">Biosimilar</a></li>
+        <li><a href="services.html#bioprocess">Bioprocess Impurities</a></li>
+        <li><a href="services.html#el">E&amp;L</a></li>
+        <li><a href="services.html#nitrosamines">Nitrosamines</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@amicomanalytics.com">info@amicomanalytics.com</a></li>
+        <li><a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="footer-year"></span> AMICOM Analytics LLP. All Rights Reserved.</span>
+    <span>GMP · GLP · ICH Compliant</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+const BACKEND_URL = "http://localhost:5000"; // 🔧 Change to your deployed backend URL
+
+// Domain tag toggle
+document.querySelectorAll('.domain-tag').forEach(tag => {
+  tag.addEventListener('click', function() { this.classList.toggle('selected'); });
+});
+
+function showFileName(input) {
+  const nameEl = document.getElementById('file-name-display');
+  if (input.files.length > 0) {
+    nameEl.textContent = '✓ ' + input.files[0].name;
+    nameEl.style.display = 'block';
+  }
+}
+
+async function handleCareerSubmit(e) {
+  e.preventDefault();
+  const form = document.getElementById('career-form');
+  const btn  = form.querySelector('button[type="submit"]');
+  const errorBox = document.getElementById('career-error');
+
+  const inputs   = form.querySelectorAll('input[type="text"], input[type="number"], input[type="email"], input[type="tel"]');
+  const name     = inputs[0].value.trim();
+  const age      = inputs[1].value.trim();
+  const email1   = inputs[2].value.trim();
+  const phone1   = inputs[3].value.trim();
+  const experience = inputs[4].value.trim();
+  const org      = inputs[5].value.trim();
+
+  const domains = [...document.querySelectorAll('.domain-tag.selected')]
+    .map(t => t.textContent.trim()).join(', ');
+
+  const message = `Career Application\n\nName: ${name}\nAge: ${age || 'N/A'}\nPhone: ${phone1}\nExperience: ${experience} years\nCurrent Org: ${org || 'N/A'}\nDomains: ${domains || 'N/A'}`;
+
+  btn.disabled = true;
+  btn.textContent = 'Sending…';
+  errorBox.style.display = 'none';
+
+  try {
+    const res = await fetch(`${BACKEND_URL}/send-mail`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, email1, phone1, message, formType: 'career' })
+    });
+    const data = await res.json();
+    if (res.ok && data.success) {
+      form.style.display = 'none';
+      document.getElementById('career-success').style.display = 'block';
+    } else {
+      throw new Error(data.error || 'Something went wrong.');
+    }
+  } catch (err) {
+    errorBox.textContent = '⚠ ' + (err.message || 'Could not submit. Please try again or email us directly.');
+    errorBox.style.display = 'block';
+    btn.disabled = false;
+    btn.textContent = 'Submit Application →';
+  }
+}
+</script>
+</body>
+</html>

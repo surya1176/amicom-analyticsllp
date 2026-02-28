@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Services – AMICOM Analytics</title>
+  <link rel="stylesheet" href="style.css"/>
+  <style>
+    .service-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem; padding: 0.4rem; background: var(--light-bg); border-radius: 8px; }
+    .tab-btn {
+      padding: 0.55rem 1.1rem; border-radius: 6px; border: none; cursor: pointer;
+      font-family: inherit; font-size: 0.8rem; font-weight: 500; color: var(--gray);
+      background: transparent; transition: all 0.2s; letter-spacing: 0.03em;
+    }
+    .tab-btn:hover { color: var(--green); background: white; }
+    .tab-btn.active { background: var(--green); color: white; }
+
+    .service-section {
+      display: none; animation: fadeIn 0.3s ease;
+    }
+    .service-section.active { display: block; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+
+    .service-header {
+      display: flex; align-items: flex-start; gap: 2rem; margin-bottom: 2.5rem;
+      padding: 2rem; background: var(--light-bg); border-radius: 12px;
+      border-left: 4px solid var(--green);
+    }
+    .service-num-big {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 4rem; font-weight: 700; color: var(--border); line-height: 1; flex-shrink: 0;
+    }
+    .service-header h2 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .service-header p { font-size: 0.9rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
+
+    .bullet-list { list-style: none; }
+    .bullet-list li {
+      padding: 0.5rem 0 0.5rem 1.5rem; font-size: 0.875rem; color: var(--gray);
+      border-bottom: 1px solid var(--border); position: relative; line-height: 1.5;
+    }
+    .bullet-list li:last-child { border-bottom: none; }
+    .bullet-list li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-weight: 600; }
+
+    .two-col-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
+    @media(max-width:600px) { .two-col-list { grid-template-columns: 1fr; } }
+
+    .table-scroll { overflow-x: auto; }
+
+    .svc-nav {
+      position: sticky; top: 68px; z-index: 100; background: white;
+      border-bottom: 1px solid var(--border); padding: 0 5%;
+    }
+  </style>
+</head>
+<body>
+
+<nav id="main-nav">
+  <a href="index.html" class="nav-logo">
+<img src="amicom-logo.jpeg" alt="AMICOM Logo" style="height:44px; width:auto;"/>
+    <div>
+      <span class="nav-logo-text">AMICOM<span>.</span></span>
+      <span class="nav-logo-sub">Analytics</span>
+    </div>
+  </a>
+  <ul class="nav-links">
+    <li><a href="index.html">Home</a></li>
+    <li><a href="about.html">About Us</a></li>
+    <li><a href="services.html">Services</a></li>
+    <li><a href="career.html">Career</a></li>
+    <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
+  </ul>
+</nav>
+
+<div class="page-hero">
+  <div class="page-hero-content">
+    <p class="section-label light" style="margin-bottom:1rem;">Our Capabilities</p>
+    <h1>Comprehensive<br/><em>Analytical Services</em></h1>
+    <p>Our analytical services span a broad portfolio from small molecules to highly complex biologics — including peptides, proteins, NBCDs, bioprocess impurities, extractables &amp; leachables, and nitrosamines — delivering reliable, end-to-end solutions aligned with global regulatory expectations.</p>
+  </div>
+</div>
+
+<!-- STICKY TABS NAV -->
+<div class="svc-nav">
+  <div class="service-tabs" style="padding:0.6rem 0; background:transparent; border-radius:0; gap:0;">
+    <button class="tab-btn active" onclick="showService('analytical')">01 · Analytical &amp; Testing</button>
+    <button class="tab-btn" onclick="showService('nbcd')">02 · NBCD / IVBE</button>
+    <button class="tab-btn" onclick="showService('biosimilar')">03 · Biosimilar Characterization</button>
+    <button class="tab-btn" onclick="showService('bioprocess')">04 · Bioprocess Impurities</button>
+    <button class="tab-btn" onclick="showService('el')">05 · Extractables &amp; Leachables</button>
+    <button class="tab-btn" onclick="showService('nitrosamines')">06 · Nitrosamines &amp; NDSRIs</button>
+  </div>
+</div>
+
+<section class="section">
+
+  <!-- 01 ANALYTICAL -->
+  <div class="service-section active fade-up" id="analytical">
+    <div class="service-header">
+      <div class="service-num-big">01</div>
+      <div>
+        <h2>Analytical &amp; Testing Services</h2>
+        <p>We provide comprehensive analytical and testing services supporting drug substances and drug products across development, validation, and commercial stages. Our methods are ICH Q2 aligned and designed to meet global regulatory expectations.</p>
+      </div>
+    </div>
+    <div class="two-col-list">
+      <ul class="bullet-list">
+        <li>Method Development &amp; Validation (ICH Q2 aligned)</li>
+        <li>Assay, Related Substances &amp; Impurity Profiling</li>
+        <li>Stability Testing &amp; Forced Degradation Studies</li>
+        <li>Elemental Impurity Testing (ICH Q3D)</li>
+        <li>Residual Solvent Analysis (ICH Q3C)</li>
+        <li>Dissolution &amp; In-vitro Release Studies</li>
+      </ul>
+      <ul class="bullet-list">
+        <li>Genotoxic Impurity &amp; Nitrosamine Testing</li>
+        <li>Extractables &amp; Leachables (USP &lt;1663&gt; / &lt;1664&gt;)</li>
+        <li>Biologics &amp; Biosimilar Characterization</li>
+        <li>Bioprocess-Related Impurity Testing</li>
+        <li>Comparability &amp; Regulatory Support Studies</li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- 02 NBCD -->
+  <div class="service-section fade-up" id="nbcd">
+    <div class="service-header">
+      <div class="service-num-big">02</div>
+      <div>
+        <h2>Non-Biologic Complex Drug Analysis / IVBE Studies</h2>
+        <p>We possess strong scientific expertise and a proven track record in the analysis of <strong>Non-Biological Complex Drugs (NBCDs)</strong> and <strong>IVBE studies</strong>. Our team delivers scientifically rigorous, regulatory-compliant analytical solutions, with extensive experience and excellence in handling complex drug products — including comprehensive Iron Paramagnetic Properties Evaluation.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="styled-table">
+        <thead><tr><th>Parameter / Test</th><th>Technique / Approach</th></tr></thead>
+        <tbody>
+          <tr><td>Molecular weight distribution (Mw, Mn, Mw/Mn)</td><td>GPC or SEC-MALS or AUC</td></tr>
+          <tr><td>Haemodialysis by IVDS method</td><td>Haemodialysis followed by ICPMS/AAS</td></tr>
+          <tr><td>Labile Iron Assay</td><td>Micro Plate Reader</td></tr>
+          <tr><td>Bleomycin Iron Assay</td><td>Micro Plate Reader</td></tr>
+          <tr><td>Sodium Chloride content</td><td>Potentiometer</td></tr>
+          <tr><td>In-vitro Release time (T75)</td><td>UV Spectrophotometer</td></tr>
+          <tr><td>Kinetic Degradation by Alpha amylose</td><td>MMMR</td></tr>
+          <tr><td>Iron core size and morphology</td><td>TEM, SAXS, AFM, Mössbauer Spectroscopy</td></tr>
+          <tr><td>Crystallinity related to iron release and in vivo stability</td><td>Mössbauer Spectroscopy, Raman</td></tr>
+          <tr><td>Iron environment (valence state, spin state, coordination)</td><td>Mössbauer Spectroscopy, EPR, Raman</td></tr>
+          <tr><td>Fe³⁺ to Fe²⁺ reduction potential and Fe(II) content</td><td>Polarography</td></tr>
+          <tr><td>Magnetic properties</td><td>VSM-SQUID</td></tr>
+          <tr><td>Carbohydrate content</td><td>HPLC</td></tr>
+          <tr><td>Characterization of Polysaccharides</td><td>NMR, Size Exclusion Chromatography</td></tr>
+          <tr><td>Carbohydrate composition &amp; carbohydrate-iron core interactions</td><td>FT-IR, Thermal Analysis (TGA or DSC)</td></tr>
+          <tr><td>Surface charge</td><td>Zeta Potential</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 03 BIOSIMILAR -->
+  <div class="service-section fade-up" id="biosimilar">
+    <div class="service-header">
+      <div class="service-num-big">03</div>
+      <div>
+        <h2>Physico-Chemical Characterization for Biosimilars</h2>
+        <p>We offer comprehensive <strong>physico-chemical characterization services for biosimilars</strong> using advanced, state-of-the-art analytical techniques. Our testing ensures detailed evaluation of structural integrity, purity, and critical quality attributes in line with <strong>ICH, FDA, and EMA guidelines</strong>. These services support biosimilar development, comparability, and regulatory submissions.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="styled-table">
+        <thead><tr><th>Parameter</th><th>Attribute / Analytical Tests</th><th>Instruments / Technique</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="5" style="font-weight:600;">Primary Structure</td><td>Amino acid sequence</td><td>LC-MS/MS</td></tr>
+          <tr><td>Peptide Mapping</td><td>HRMS</td></tr>
+          <tr><td>Molecular weight / Intact Mass Analysis</td><td>LC-MS/MS</td></tr>
+          <tr><td>C &amp; N-terminal sequencing</td><td>LC-MS/MS</td></tr>
+          <tr><td>Di-Sulfide Bridge Analysis</td><td>LC-MS/MS</td></tr>
+          <tr><td rowspan="3" style="font-weight:600;">Higher-Order Structure</td><td>Secondary structure</td><td>Circular Dichroism (CD – Far UV)</td></tr>
+          <tr><td>Tertiary structure</td><td>CD (Near UV), Fluorescence Spectroscopy</td></tr>
+          <tr><td>Conformation</td><td>FT-IR Spectroscopy, NMR</td></tr>
+          <tr><td rowspan="4" style="font-weight:600;">Post-Translational Modifications</td><td>Glycosylation profiling</td><td>HILIC-UPLC, LC-MS</td></tr>
+          <tr><td>Glycan structure</td><td>MALDI-TOF MS, LC-MS/MS</td></tr>
+          <tr><td>Charge variants</td><td>Cation Exchange Chromatography (CEX-HPLC)</td></tr>
+          <tr><td>Deamidation / Oxidation</td><td>Peptide mapping by LC-MS</td></tr>
+          <tr><td rowspan="3" style="font-weight:600;">Purity &amp; Impurities</td><td>Size variants / Aggregates</td><td>SEC-HPLC, DLS</td></tr>
+          <tr><td>Fragmentation</td><td>SDS-PAGE, CE-SDS</td></tr>
+          <tr><td>Process-related impurities</td><td>ELISA, HPLC</td></tr>
+          <tr><td style="font-weight:600;">Isoform Characterization</td><td>Isoelectric point (pI)</td><td>IEF, icIEF</td></tr>
+          <tr><td rowspan="2" style="font-weight:600;">Stability &amp; Degradation</td><td>Thermal stability</td><td>Differential Scanning Calorimetry (DSC)</td></tr>
+          <tr><td>Aggregation tendency</td><td>DLS, SEC-HPLC</td></tr>
+          <tr><td rowspan="3" style="font-weight:600;">General Properties</td><td>Protein concentration</td><td>UV-Vis Spectrophotometer</td></tr>
+          <tr><td>Appearance / clarity</td><td>Visual inspection</td></tr>
+          <tr><td>pH</td><td>pH meter</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 04 BIOPROCESS -->
+  <div class="service-section fade-up" id="bioprocess">
+    <div class="service-header">
+      <div class="service-num-big">04</div>
+      <div>
+        <h2>Bioprocess Related Impurities</h2>
+        <p>Bioprocess-related impurities are unintended substances introduced or generated during the production of biologics and biotechnology-derived products — including host cell proteins (HCPs), residual host cell DNA, cell culture media components, process additives, aggregates, fragments, and leachables from single-use systems. Our testing services provide comprehensive monitoring and characterization using advanced analytical platforms such as ELISA, qPCR, LC-MS/MS, SEC-HPLC, and high-resolution mass spectrometry.</p>
+      </div>
+    </div>
+    <h3 style="font-size:1rem; font-weight:600; margin-bottom:1rem;">Upstream Impurities</h3>
+    <div class="table-scroll" style="margin-bottom:2rem;">
+      <table class="styled-table">
+        <thead><tr><th>Impurity</th><th>Method</th></tr></thead>
+        <tbody>
+          <tr><td>Benzonase</td><td>ELISA</td></tr>
+          <tr><td>Bovine Serum Albumin (BSA)</td><td>ELISA</td></tr>
+          <tr><td>Host Cell Protein (HCP)</td><td>ELISA</td></tr>
+          <tr><td>Human Serum Albumin (HSA)</td><td>ELISA</td></tr>
+          <tr><td>Insulin</td><td>ELISA</td></tr>
+          <tr><td>Long-IGF3</td><td>ELISA</td></tr>
+          <tr><td>Protein A</td><td>ELISA</td></tr>
+          <tr><td>Residual DNA</td><td>RT-PCR</td></tr>
+          <tr><td>Residual Protein</td><td>Plate Reader</td></tr>
+          <tr><td>Residual Endotoxin / LPS Estimation</td><td>LAL Assay</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <h3 style="font-size:1rem; font-weight:600; margin-bottom:1rem;">Process Enhancing Agents, Antibiotics &amp; Buffer Components</h3>
+    <div class="table-scroll">
+      <table class="styled-table">
+        <thead><tr><th>Category</th><th>Compound</th><th>Method</th></tr></thead>
+        <tbody>
+          <tr><td rowspan="10">Process Enhancing Agents</td><td>AEBSF, Cystamine, DTT, Guanidine, Leupeptin, Methionine Sulfoximine, Tropolone</td><td>LC-MS/MS</td></tr>
+          <tr><td>Arabinose</td><td>LC/CAD</td></tr>
+          <tr><td>IPTG, Polyethylene Glycol</td><td>LC-MS/MS or LC/CAD</td></tr>
+          <tr><td>TEMPO, Tri-n-butyl Phosphate (TnBP)</td><td>GC/FID</td></tr>
+          <tr><td>EDC, EDTA, Phenol/m-Cresol</td><td>LC/UV</td></tr>
+          <tr><td>Urea</td><td>LC/CAD or UV/Vis</td></tr>
+          <tr><td>TCEP</td><td>LC</td></tr>
+          <tr><td colspan="2">— — —</td></tr>
+          <tr><td>Buffer Components (Arginine, Cysteine, Acetate, Histidine, HEPES, Glucose, etc.)</td><td>LC-MS/MS, LC/UV, LC/CAD, LC/RI</td></tr>
+          <tr><td colspan="2">— — —</td></tr>
+          <tr><td>Antibiotics</td><td>Carbenicillin, Chloramphenicol, Colistin, Gentamicin, Kanamycin, Penicillin, Streptomycin, Vancomycin, and more</td><td>LC-MS/MS</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 05 E&L -->
+  <div class="service-section fade-up" id="el">
+    <div class="service-header">
+      <div class="service-num-big">05</div>
+      <div>
+        <h2>Extractables &amp; Leachables (E&amp;L)</h2>
+        <p>During manufacturing, storage, and sterilization, products may contain or generate chemical compounds that migrate into the final product. Our laboratories utilize advanced LC-MS/MS, GC-MS, and ICP-MS platforms to detect, identify, and quantify potential leachables at trace levels. We deliver protocol-driven, regulatory-aligned E&amp;L studies tailored to pharmaceuticals, medical devices, food, and beverage products — supporting global submissions and patient safety.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="styled-table">
+        <thead><tr><th>Service Area</th><th>Studies / Services</th><th>Techniques</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">Extractables Studies</td>
+            <td>Controlled extraction (USP &lt;1663&gt;), Exaggerated &amp; Simulated extractions, Worst-case solvent selection, Material screening &amp; comparative extraction, Container closure evaluation</td>
+            <td>GC-MS, Headspace GC-MS, LC-MS / LC-HRMS, UHPLC-MS/MS, ICP-MS, FTIR, UV-Vis, TOC</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Leachable Studies</td>
+            <td>Method development &amp; validation (USP &lt;1664&gt;), AET-based sensitivity validation, Stability leachables, Container closure interaction, Migration studies, Dose-based leachables assessment</td>
+            <td>Targeted LC-MS/MS, HR LC-MS (QTOF/Orbitrap), GC-MS, Headspace GC-MS, ICP-MS, Ion Chromatography, HPLC-DAD/FLD</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Material Characterization</td>
+            <td>Polymer characterization, Additive &amp; antioxidant profiling, Plasticizer identification, Silicone oil analysis, Rubber &amp; elastomer evaluation</td>
+            <td>Pyrolysis GC-MS, Thermal Desorption GC-MS, FTIR (ATR &amp; Transmission), DSC/TGA, LC-MS, GC-FID</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Toxicological Assessment</td>
+            <td>AET calculation, SCT assessment, TTC evaluation, PDE calculation, Toxicological risk assessment reports</td>
+            <td>Toxicological databases, Exposure modeling tools, Risk assessment frameworks</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Elemental Impurities &amp; Trace Metals</td>
+            <td>Extractable metals screening, Leachable metals monitoring, ICH Q3D compliance testing, Container closure elemental risk assessment</td>
+            <td>ICP-MS, ICP-OES</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Specialized Programs</td>
+            <td>Biologics &amp; protein formulation E&amp;L, Parenteral &amp; ophthalmic programs, Inhalation product E&amp;L, Combination product support, Post-approval change assessment</td>
+            <td>LC-HRMS Non-Targeted Screening, Ultra-trace LC-MS/MS, GC-MS, Headspace GC-MS, ICP-MS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 06 NITROSAMINES -->
+  <div class="service-section fade-up" id="nitrosamines">
+    <div class="service-header">
+      <div class="service-num-big">06</div>
+      <div>
+        <h2>Nitrosamines &amp; NDSRIs</h2>
+        <p>Nitrosamines and Nitrosamine Drug Substance Related Impurities (NDSRIs) are highly potent mutagenic impurities that may arise from complex interactions within the drug substance, manufacturing process, excipients, or packaging systems. Our testing services combine advanced LC-MS/MS, GC-MS/MS, and high-resolution mass spectrometry with structure-based risk assessment to identify both known nitrosamines and API-specific NDSRIs.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table class="styled-table">
+        <thead><tr><th>Service Area</th><th>Services</th><th>Techniques</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600;">Nitrosamines (Volatile &amp; Semi-Volatile)</td>
+            <td>Targeted screening of regulated nitrosamines, Trace-level quantification per global guidance, Method development &amp; validation, Batch release &amp; stability testing, Risk-based confirmatory testing</td>
+            <td>LC-MS/MS, GC-MS/MS, Headspace GC-MS, Isotope Dilution Techniques</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">NDSRIs</td>
+            <td>API-specific NDSRI identification, Structure-based risk assessment, Impurity profiling &amp; characterization, Forced degradation studies, Control strategy development</td>
+            <td>High-Resolution LC-MS (QTOF/Orbitrap), LC-MS/MS (Ultra-trace), GC-MS/MS, HRMS Non-Targeted Screening</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Risk Assessment &amp; Regulatory Support</td>
+            <td>Nitrosamine risk evaluation, AET-based method sensitivity justification, Acceptable intake (AI) calculation, Root cause investigation, Regulatory submission support</td>
+            <td>LC-MS/MS Quantitation, HRMS Structure Elucidation, Exposure Modeling Tools</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600;">Specialized Studies</td>
+            <td>Nitrosamine formation pathway assessment, Process &amp; excipient evaluation, Packaging-related nitrosamine assessment, Cleaning validation support, Post-approval change assessment</td>
+            <td>LC-MS/MS, GC-MS/MS, Headspace GC-MS, HRMS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</section>
+
+<!-- CTA -->
+<div style="background:var(--light-bg); padding:60px 5%; text-align:center;">
+  <p class="section-label" style="justify-content:center;">Get Started</p>
+  <h2 class="section-title" style="margin-bottom:0.8rem;">Need a Service or Custom Study?</h2>
+  <p class="section-sub" style="margin:0 auto 2rem;">Contact our team to discuss your specific analytical requirements and get a tailored proposal.</p>
+  <a href="contact.html" class="btn btn-primary">Request a Quote →</a>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="footer-logo">AMICOM<span>.</span></div>
+      <p>AMICOM Analytics LLP is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for biologics and NBCDs.</p>
+      <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>    </div>
+    <div class="footer-col">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About Us</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="career.html">Career</a></li>
+        <li><a href="contact.html">Contact Us</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Services</h4>
+      <ul>
+        <li><a href="#analytical" onclick="showService('analytical')">Analytical &amp; Testing</a></li>
+        <li><a href="#nbcd" onclick="showService('nbcd')">NBCD / IVBE</a></li>
+        <li><a href="#biosimilar" onclick="showService('biosimilar')">Biosimilar</a></li>
+        <li><a href="#bioprocess" onclick="showService('bioprocess')">Bioprocess Impurities</a></li>
+        <li><a href="#el" onclick="showService('el')">E&amp;L</a></li>
+        <li><a href="#nitrosamines" onclick="showService('nitrosamines')">Nitrosamines</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="mailto:info@amicomanalytics.com">info@amicomanalytics.com</a></li>
+        <li><a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© <span id="footer-year"></span> AMICOM Analytics LLP. All Rights Reserved.</span>
+    <span>GMP · GLP · ICH Compliant</span>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+<script>
+function showService(id) {
+  document.querySelectorAll('.service-section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(id)?.classList.add('active');
+  const idx = ['analytical','nbcd','biosimilar','bioprocess','el','nitrosamines'].indexOf(id);
+  document.querySelectorAll('.tab-btn')[idx]?.classList.add('active');
+  window.scrollTo({ top: document.querySelector('.svc-nav').offsetTop - 10, behavior: 'smooth' });
+}
+// Handle hash links
+const h = window.location.hash.replace('#','');
+if (h) showService(h);
+</script>
+</body>
+</html>
