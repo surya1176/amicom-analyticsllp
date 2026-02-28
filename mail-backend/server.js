@@ -46,8 +46,8 @@ app.post("/send-mail", async (req, res) => {
       from: `"${COMPANY_NAME} Website" <${SENDER_EMAIL}>`,
       to: NOTIFY_EMAIL,
       subject: isCareer
-        ? `📋 New Career Application – ${name}`
-        : `📩 New Contact Inquiry – ${subject || "General"} from ${name}`,
+        ? `📋 New Career Application - ${name}`
+        : `📩 New Contact Inquiry - ${subject || "General"} from ${name}`,
       html: isCareer
         ? `
           <div style="font-family:Arial,sans-serif; max-width:600px; color:#1a1a1a;">
@@ -91,7 +91,7 @@ app.post("/send-mail", async (req, res) => {
       from: `"${COMPANY_NAME}" <${SENDER_EMAIL}>`,
       to: email1,
       subject: isCareer
-        ? `Application Received – ${COMPANY_NAME}`
+        ? `Application Received - ${COMPANY_NAME}`
         : `Thank you for contacting ${COMPANY_NAME}`,
       html: isCareer
         ? `
