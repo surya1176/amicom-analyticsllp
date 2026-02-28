@@ -257,7 +257,7 @@
 
 <script src="main.js"></script>
 <script>
-const BACKEND_URL = "https://amicom-backend-lesq.onrender.com"; // 🔧 Change to your deployed backend URL
+const BACKEND_URL = "https://amicom-backend-g2h2.vercel.app"; // 🔧 Change to your deployed backend URL
 
 // Domain tag toggle
 document.querySelectorAll('.domain-tag').forEach(tag => {
@@ -301,13 +301,27 @@ async function handleCareerSubmit(e) {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name, email1, phone1, message, formType: 'career' })
     });
-    const data = await res.json();
-    if (res.ok && data.success) {
-      form.style.display = 'none';
-      document.getElementById('career-success').style.display = 'block';
-    } else {
-      throw new Error(data.error || 'Something went wrong.');
-    }
+
+// First check if request itself failed
+if (!res.ok) {
+  const errorText = await res.text();  // read raw response
+  throw new Error("Server error: " + errorText);
+}
+
+// Now safely parse JSON
+let data;
+try {
+  data = await res.json();
+} catch (err) {
+  throw new Error("Invalid JSON response from server.");
+}
+
+if (data.success) {
+  form.style.display = 'none';
+  document.getElementById('contact-success').style.display = 'block';
+} else {
+  throw new Error(data.error || 'Something went wrong.');
+}
   } catch (err) {
     errorBox.textContent = '⚠ ' + (err.message || 'Could not submit. Please try again or email us directly.');
     errorBox.style.display = 'block';
