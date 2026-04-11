@@ -3,192 +3,299 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>AMICOM Analytics – Biopharma & Analytical Services</title>
-  <link rel="stylesheet" href="style.css"/>
+  <title>AMICOM Analytics – Biopharma &amp; Analytical Services</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    /* ── HERO ── */
+    /* ══════════════════════════════════════
+       GREEN PALETTE — light green to deep green
+       ══════════════════════════════════════ */
+    :root {
+      --spring:       #4ade80;
+      --spring-dim:   #16a34a;
+      --spring-deep:  #15803d;
+      --spring-ink:   #052e16;
+      --spring-pale:  #f0fff6;
+      --spring-pale2: #dcfce7;
+      --spring-glow:  rgba(74,222,128,0.18);
+      --dark:   #052e16;
+      --gray:   #2d4a38;
+      --muted:  #4b7a5e;
+      --border: #bbf7d0;
+      --white:  #ffffff;
+      --surface:#f0fff6;
+      --shadow:    0 4px 20px rgba(22,163,74,0.10);
+      --shadow-lg: 0 12px 44px rgba(22,163,74,0.18);
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans', sans-serif; background:var(--white); color:var(--dark); overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
+    ul { list-style:none; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display:inline-flex; align-items:center; gap:0.4rem;
+      padding:0.75rem 1.6rem; border-radius:7px;
+      font-size:0.85rem; font-weight:600; letter-spacing:0.03em;
+      transition:all 0.22s; cursor:pointer; border:none;
+    }
+    .btn-primary { background:var(--spring-dim); color:#fff; }
+    .btn-primary:hover { background:var(--spring-deep); transform:translateY(-2px); box-shadow:0 8px 24px rgba(22,163,74,0.30); }
+    .btn-outline { background:transparent; color:var(--spring-deep); border:1.5px solid var(--spring-dim); }
+    .btn-outline:hover { background:var(--spring-pale); }
+    .btn-outline-white { background:transparent; color:#fff; border:1.5px solid rgba(255,255,255,0.55); }
+    .btn-outline-white:hover { background:rgba(255,255,255,0.12); }
+    .btn-white { background:#fff; color:var(--spring-ink); font-weight:700; }
+    .btn-white:hover { background:var(--spring-pale); }
+    .btn-sm { padding:0.5rem 1.1rem; font-size:0.8rem; }
+
+    /* ── NAV ── */
+    #main-nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 5%; background:rgba(255,255,255,0.97);
+      backdrop-filter:blur(14px); border-bottom:1px solid var(--border);
+      height:72px; transition:box-shadow 0.3s;
+    }
+    .nav-logo { display:flex; align-items:center; gap:0.8rem; }
+    .nav-logo img { height:52px; width:auto; }
+    .nav-logo-wrap { display:flex; flex-direction:column; line-height:1.15; }
+    .nav-logo-text { font-family:'Cormorant Garamond', serif; font-size:1.28rem; font-weight:700; color:var(--spring-ink); white-space:nowrap; }
+    .nav-logo-text span { color:var(--spring-dim); }
+    .nav-caption { font-size:0.6rem; color:var(--spring-deep); letter-spacing:0.1em; text-transform:uppercase; font-style:italic; }
+    .nav-links { display:flex; align-items:center; gap:2rem; }
+    .nav-links a { font-size:0.85rem; font-weight:500; color:var(--gray); transition:color 0.2s; }
+    .nav-links a:not(.nav-cta):hover { color:var(--spring-deep); }
+    .nav-cta { background:var(--spring-dim); color:#fff !important; padding:0.5rem 1.2rem; border-radius:7px; font-weight:600 !important; }
+    .nav-cta:hover { background:var(--spring-deep) !important; transform:translateY(-1px); }
+
+    /* ── SECTIONS ── */
+    .section { padding:90px 5%; }
+    .section-alt { background:var(--surface); }
+    .section-label {
+      font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+      color:var(--spring-dim); font-weight:600; margin-bottom:0.7rem;
+      display:flex; align-items:center; gap:0.5rem;
+    }
+    .section-label::before { content:''; display:inline-block; width:20px; height:2px; background:var(--spring-dim); border-radius:2px; }
+    .section-title { font-family:'Cormorant Garamond', serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; color:var(--spring-ink); line-height:1.15; margin-bottom:1rem; }
+    .section-sub { font-size:0.9rem; color:var(--muted); line-height:1.8; font-weight:300; max-width:560px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:center; }
+    .grid-4 { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
+    @media(max-width:900px){ .grid-4{grid-template-columns:repeat(2,1fr);} .grid-2{grid-template-columns:1fr;} }
+    @media(max-width:500px){ .grid-4{grid-template-columns:1fr;} }
+
+    /* ── CARD ── */
+    .card { background:#fff; border:1px solid var(--border); border-radius:10px; padding:1.5rem; position:relative; overflow:hidden; }
+    .card-accent { position:absolute; left:0; top:0; bottom:0; width:3px; background:linear-gradient(to bottom, var(--spring-dim), var(--spring)); }
+
+    /* ══════════════════════════════════════
+       HERO — CAROUSEL
+       ══════════════════════════════════════ */
     .hero {
-      min-height: 100vh;
-      background: linear-gradient(140deg, #091210 0%, #122a1c 45%, #0a1b0e 100%);
-      display: flex; align-items: center;
-      padding: 100px 5% 80px;
-      position: relative; overflow: hidden;
+      padding-top:72px; /* offset for fixed nav */
+    }
+
+    /* Carousel wrapper */
+    .hero-carousel-outer {
+      overflow:hidden; width:100%; position:relative;
+    }
+    .hero-carousel-track {
+      display:flex;
+      transition:transform 0.5s cubic-bezier(0.4,0,0.2,1);
+      will-change:transform;
+    }
+    .hero-slide { min-width:100%; }
+
+    /* ── Slide 0: Company Info ── */
+    .hslide-0 {
+      min-height:calc(100vh - 72px);
+      display:flex; align-items:center;
+      padding:60px 5% 60px;
+      background:linear-gradient(145deg, #f0fff6 0%, #dcfce7 50%, #f0fff6 100%);
+      position:relative; overflow:hidden;
     }
     .hero-grid {
-      position: absolute; inset: 0; opacity: 0.05;
-      background-image:
-        linear-gradient(rgba(122,184,147,1) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(122,184,147,1) 1px, transparent 1px);
-      background-size: 64px 64px;
+      position:absolute; inset:0; opacity:0.45;
+      background-image:linear-gradient(rgba(74,222,128,0.13) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(74,222,128,0.13) 1px, transparent 1px);
+      background-size:60px 60px;
     }
-    .hero-glow {
-      position: absolute; right: -5%; top: 10%;
-      width: 55vw; height: 80vh;
-      background: radial-gradient(ellipse, rgba(61,107,79,0.3) 0%, transparent 65%);
-      pointer-events: none;
-    }
-    .hero-content { position: relative; z-index: 2; max-width: 680px; }
+    .hero-glow { position:absolute; right:-8%; top:5%; width:52vw; height:80vh; background:radial-gradient(ellipse, rgba(74,222,128,0.22) 0%, transparent 68%); pointer-events:none; }
+    .hero-content { position:relative; z-index:2; max-width:700px; }
     .hero-badge {
-      display: inline-flex; align-items: center; gap: 8px;
-      background: rgba(61,107,79,0.2); border: 1px solid rgba(122,184,147,0.3);
-      padding: 0.35rem 1rem; border-radius: 100px; margin-bottom: 2rem;
-      font-size: 0.75rem; letter-spacing: 0.12em; text-transform: uppercase;
-      color: var(--green-light);
+      display:inline-flex; align-items:center; gap:8px;
+      background:rgba(74,222,128,0.14); border:1px solid rgba(74,222,128,0.38);
+      padding:0.35rem 1rem; border-radius:100px; margin-bottom:2rem;
+      font-size:0.75rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--spring-deep);
     }
-    .hero-badge-dot {
-      width: 6px; height: 6px; background: var(--green-light);
-      border-radius: 50%; animation: blink 2s infinite;
-    }
-    @keyframes blink {
-      0%, 100% { opacity: 1; transform: scale(1); }
-      50% { opacity: 0.4; transform: scale(1.4); }
-    }
-    .hero h1 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2.8rem, 5.5vw, 4.8rem); font-weight: 600;
-      color: white; line-height: 1.08; margin-bottom: 1.5rem;
-    }
-    .hero h1 em { color: var(--accent); font-style: normal; }
+    .hero-badge-dot { width:7px; height:7px; background:var(--spring); border-radius:50%; animation:blink 2s infinite; }
+    @keyframes blink { 0%,100%{opacity:1;transform:scale(1);}50%{opacity:0.4;transform:scale(1.5);} }
+    .hslide-0 h1 { font-family:'Cormorant Garamond', serif; font-size:clamp(2.8rem,5.5vw,4.8rem); font-weight:600; color:var(--spring-ink); line-height:1.08; margin-bottom:1.5rem; }
+    .hslide-0 h1 em { color:var(--spring-dim); font-style:normal; }
+    .hero-desc { color:var(--gray); font-size:0.95rem; line-height:1.85; max-width:570px; margin-bottom:2.5rem; font-weight:300; }
+    .hero-btns { display:flex; gap:1rem; flex-wrap:wrap; margin-bottom:3.5rem; }
+    .hero-stats { display:flex; gap:2.5rem; flex-wrap:wrap; padding-top:2rem; border-top:1px solid var(--border); }
+    .stat-num { font-family:'Cormorant Garamond', serif; font-size:2.4rem; font-weight:700; color:var(--spring-dim); line-height:1; }
+    .stat-num sup { font-size:1.2rem; }
+    .stat-label { font-size:0.72rem; color:var(--muted); text-transform:uppercase; letter-spacing:0.08em; margin-top:0.25rem; }
 
-    .ticker-container {
-      margin-bottom: 2rem;
-      border-left: 3px solid var(--accent);
-      padding-left: 1.2rem; height: 2.2rem; overflow: hidden;
+    /* ── Slides 1–3: Tagline slides ── */
+    .hslide-tag {
+      min-height:calc(100vh - 72px);
+      display:flex; align-items:stretch;
     }
-    .ticker-inner {
-      display: flex; flex-direction: column;
-      animation: tickUp 9s infinite ease-in-out;
+    .htag-img {
+      width:44%; flex-shrink:0;
+      background:linear-gradient(145deg, var(--spring-pale2) 0%, var(--border) 100%);
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      gap:1rem; position:relative; overflow:hidden;
     }
-    .ticker-item {
-      font-size: 0.92rem; color: rgba(255,255,255,0.7);
-      min-height: 2.2rem; display: flex; align-items: center;
-      font-weight: 300; letter-spacing: 0.02em;
+    .htag-img .hero-grid { opacity:0.5; }
+    .htag-img-circle {
+      width:120px; height:120px; border-radius:50%;
+      border:2px dashed rgba(22,163,74,0.35);
+      background:rgba(255,255,255,0.55);
+      display:flex; align-items:center; justify-content:center; position:relative; z-index:2;
     }
-    @keyframes tickUp {
-      0%, 28%   { transform: translateY(0); }
-      33%, 61%  { transform: translateY(-2.2rem); }
-      66%, 94%  { transform: translateY(-4.4rem); }
-      99%, 100% { transform: translateY(0); }
+    .htag-img-circle svg { width:48px; height:48px; stroke:var(--spring-dim); fill:none; stroke-width:1.5; }
+    .htag-img-caption { font-size:0.68rem; color:var(--spring-deep); opacity:0.5; letter-spacing:0.07em; position:relative; z-index:2; }
+    .htag-body {
+      flex:1;
+      display:flex; flex-direction:column; justify-content:center;
+      padding:3rem 4rem 3rem 3rem;
+      background:linear-gradient(135deg, #f0fff6 0%, #f8fffb 100%);
     }
-    .hero-desc {
-      color: rgba(255,255,255,0.6); font-size: 0.95rem; line-height: 1.85;
-      max-width: 560px; margin-bottom: 2.5rem; font-weight: 300;
+    .htag-num {
+      width:34px; height:34px; border-radius:50%;
+      background:var(--spring-dim); color:#fff;
+      font-size:0.82rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      margin-bottom:1rem;
     }
-    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; margin-bottom: 3.5rem; }
-    .hero-stats {
-      display: flex; gap: 2.5rem; flex-wrap: wrap;
-      padding-top: 2.5rem; border-top: 1px solid rgba(255,255,255,0.1);
-    }
-    .stat { }
-    .stat-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.4rem; font-weight: 700; color: var(--accent); line-height: 1;
-    }
-    .stat-label { font-size: 0.75rem; color: rgba(255,255,255,0.45); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 0.25rem; }
+    .htag-cat { font-size:0.65rem; text-transform:uppercase; letter-spacing:0.13em; color:var(--spring-dim); font-weight:600; margin-bottom:0.5rem; }
+    .htag-body h2 { font-family:'Cormorant Garamond', serif; font-size:clamp(1.4rem,2.5vw,2.2rem); font-weight:600; color:var(--spring-ink); line-height:1.25; margin-bottom:1rem; }
+    .htag-body p { font-size:0.9rem; color:var(--muted); line-height:1.8; font-weight:300; max-width:420px; }
 
-    /* ── INTRO STRIP ── */
-    .intro-strip {
-      background: var(--green-dark); padding: 30px 5%;
-      display: flex; align-items: center; justify-content: space-between; gap: 2rem; flex-wrap: wrap;
+    /* ── Carousel Controls ── */
+    .hero-controls {
+      display:flex; align-items:center; justify-content:center;
+      gap:1rem; padding:1rem 0 1.1rem;
+      background:var(--spring-pale); border-top:1px solid var(--border);
     }
-    .intro-strip p { color: rgba(255,255,255,0.8); font-size: 0.9rem; max-width: 680px; font-weight: 300; }
-    .cert-logos { display: flex; gap: 1.5rem; align-items: center; flex-wrap: wrap; }
-    .cert-badge {
-      background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
-      padding: 0.4rem 0.9rem; border-radius: 4px;
-      font-size: 0.75rem; font-weight: 600; color: var(--accent-light); letter-spacing: 0.06em;
+    .hero-dots { display:flex; gap:0.45rem; }
+    .hero-dot {
+      width:8px; height:8px; border-radius:50%;
+      background:var(--border); border:none; cursor:pointer; transition:all 0.22s;
     }
+    .hero-dot.active { background:var(--spring-dim); width:22px; border-radius:4px; }
+    .hero-arr {
+      width:34px; height:34px; border-radius:50%;
+      border:1.5px solid var(--border); background:#fff;
+      cursor:pointer; display:flex; align-items:center; justify-content:center;
+      font-size:1.1rem; color:var(--spring-ink); transition:all 0.2s; line-height:1;
+    }
+    .hero-arr:hover { background:var(--spring-pale2); border-color:var(--spring-dim); }
 
-    /* ── SERVICES PREVIEW ── */
-    .services-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-    @media (max-width: 900px) { .services-grid { grid-template-columns: 1fr 1fr; } }
-    @media (max-width: 580px) { .services-grid { grid-template-columns: 1fr; } }
-
+    /* ══════════════════════════════════════  SERVICES  ══ */
+    .services-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1.4rem; }
+    @media(max-width:900px){ .services-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:580px){ .services-grid{grid-template-columns:1fr;} }
     .svc-card {
-      background: white; border: 1px solid var(--border);
-      border-radius: 10px; padding: 2rem; transition: all 0.25s;
-      position: relative; overflow: hidden; text-decoration: none; display: block;
+      background:#fff; border:1px solid var(--border); border-radius:12px;
+      padding:2rem 1.8rem 1.6rem; transition:all 0.25s;
+      position:relative; overflow:hidden; text-decoration:none; display:block;
     }
-    .svc-card::after {
-      content: ''; position: absolute; bottom: 0; left: 0;
-      width: 100%; height: 3px; background: var(--green);
-      transform: scaleX(0); transition: transform 0.25s; transform-origin: left;
-    }
-    .svc-card:hover { transform: translateY(-5px); box-shadow: 0 16px 40px rgba(0,0,0,0.09); }
-    .svc-card:hover::after { transform: scaleX(1); }
-    .svc-num {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.5rem; font-weight: 700; color: var(--border);
-      line-height: 1; margin-bottom: 1rem;
-    }
-    .svc-card:hover .svc-num { color: var(--green-light); transition: color 0.25s; }
-    .svc-title { font-size: 0.95rem; font-weight: 600; color: var(--dark); margin-bottom: 0.6rem; }
-    .svc-desc { font-size: 0.83rem; color: var(--gray-light); line-height: 1.65; font-weight: 300; }
-    .svc-link {
-      display: inline-flex; align-items: center; gap: 0.3rem;
-      font-size: 0.78rem; color: var(--green); font-weight: 600; margin-top: 1rem;
-      letter-spacing: 0.04em;
-    }
+    .svc-card::before { content:''; position:absolute; left:0; top:0; bottom:0; width:0; background:var(--spring); transition:width 0.25s; border-radius:12px 0 0 12px; }
+    .svc-card:hover { transform:translateY(-5px); box-shadow:var(--shadow-lg); border-color:var(--spring); }
+    .svc-card:hover::before { width:4px; }
+    .svc-icon { width:46px; height:46px; border-radius:10px; background:var(--spring-pale); display:flex; align-items:center; justify-content:center; margin-bottom:1.3rem; transition:background 0.25s; }
+    .svc-card:hover .svc-icon { background:var(--spring); }
+    .svc-icon svg { width:22px; height:22px; stroke:var(--spring-dim); fill:none; stroke-width:1.8; transition:stroke 0.25s; }
+    .svc-card:hover .svc-icon svg { stroke:var(--spring-ink); }
+    .svc-title { font-size:1.05rem; font-weight:600; color:var(--spring-ink); line-height:1.35; }
+    .svc-link { display:inline-flex; align-items:center; gap:0.3rem; font-size:0.78rem; color:var(--spring-dim); font-weight:600; margin-top:1.1rem; letter-spacing:0.04em; opacity:0; transition:opacity 0.25s; }
+    .svc-card:hover .svc-link { opacity:1; }
 
-    /* ── WHY ── */
-    .why-card {
-      padding: 2.5rem; border-radius: 12px; background: white;
-      box-shadow: var(--shadow);
-    }
-    .why-icon {
-      width: 52px; height: 52px; background: linear-gradient(135deg, var(--green), var(--green-mid));
-      border-radius: 12px; display: flex; align-items: center; justify-content: center;
-      margin-bottom: 1.2rem;
-    }
-    .why-icon svg { width: 24px; height: 24px; stroke: white; fill: none; stroke-width: 1.8; }
-    .why-card h3 { font-size: 1rem; font-weight: 600; margin-bottom: 0.6rem; color: var(--dark); }
-    .why-card p { font-size: 0.85rem; color: var(--gray-light); line-height: 1.7; font-weight: 300; }
+    /* ══════════════════════════════════════  WHY  ══ */
+    .why-card { padding:2rem 1.8rem; border-radius:12px; background:#fff; border:1px solid var(--border); transition:all 0.25s; }
+    .why-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--spring); }
+    .why-icon { width:50px; height:50px; border-radius:12px; background:var(--spring); display:flex; align-items:center; justify-content:center; margin-bottom:1.2rem; }
+    .why-icon svg { width:22px; height:22px; stroke:var(--spring-ink); fill:none; stroke-width:2; }
+    .why-card h3 { font-size:0.95rem; font-weight:600; margin-bottom:0.5rem; color:var(--spring-ink); }
+    .why-card p { font-size:0.84rem; color:var(--muted); line-height:1.7; font-weight:300; }
 
-    /* ── TEAM PREVIEW ── */
-    .team-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 1.5rem; }
-    @media (max-width: 900px) { .team-grid { grid-template-columns: repeat(2,1fr); } }
-    @media (max-width: 500px) { .team-grid { grid-template-columns: 1fr; } }
-    .team-card {
-      text-align: center; padding: 2rem 1.5rem;
-      background: white; border: 1px solid var(--border); border-radius: 10px;
-      transition: all 0.25s;
-    }
-    .team-card:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .team-avatar {
-      width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 1rem;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.8rem; font-weight: 700; color: white;
-    }
-    .team-card h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.3rem; }
-    .team-card p { font-size: 0.78rem; color: var(--gray-light); line-height: 1.4; }
-
-    /* ── CTA BANNER ── */
-    .cta-banner {
-      background: linear-gradient(135deg, var(--green-dark), var(--green));
-      padding: 80px 5%; text-align: center;
-    }
-    .cta-banner h2 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: clamp(2rem, 4vw, 3rem); color: white; margin-bottom: 0.8rem;
-    }
-    .cta-banner p { color: rgba(255,255,255,0.7); margin-bottom: 2rem; font-size: 0.95rem; }
-    .cta-banner-btns { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
-
-    /* ── BUSINESS MODEL ── */
-    .model-flow {
-      display: flex; align-items: center; justify-content: center; gap: 0; flex-wrap: wrap;
-      margin: 2.5rem 0;
+    /* ══════════════════════════════════════
+       BUSINESS MODEL
+       ══════════════════════════════════════ */
+    .model-track {
+      display:flex; align-items:stretch;
+      background:var(--spring-pale); border:1px solid var(--border);
+      border-radius:14px; overflow:hidden;
+      margin:2rem 0 2.5rem;
     }
     .model-step {
-      background: var(--green-dark); color: white;
-      padding: 1.2rem 2rem; border-radius: 8px; text-align: center; min-width: 160px;
+      flex:1 1 0; min-width:0;
+      padding:1.4rem 1rem; text-align:center;
+      position:relative;
     }
-    .model-step h4 { font-size: 0.85rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--accent-light); text-transform: uppercase; letter-spacing: 0.06em; }
-    .model-step p { font-size: 0.78rem; color: rgba(255,255,255,0.7); }
-    .model-arrow {
-      font-size: 1.5rem; color: var(--green-light); padding: 0 0.8rem;
+    .model-step + .model-step { border-left:1px dashed var(--border); }
+    .model-step-num {
+      width:28px; height:28px; border-radius:50%;
+      background:var(--spring); color:var(--spring-ink);
+      font-size:0.78rem; font-weight:700;
+      display:flex; align-items:center; justify-content:center;
+      margin:0 auto 0.6rem;
     }
+    .model-step h4 { font-size:0.78rem; font-weight:700; color:var(--spring-deep); text-transform:uppercase; letter-spacing:0.08em; margin-bottom:0.2rem; white-space:nowrap; }
+    .model-step p { font-size:0.75rem; color:var(--muted); line-height:1.35; }
+    .model-arrow-badge {
+      display:flex; align-items:center; padding:0 0.3rem;
+      color:var(--spring-dim); font-size:1rem; font-weight:700;
+      flex-shrink:0;
+    }
+
+    /* ══════════════════════════════════════  TEAM  ══ */
+    .team-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:1.5rem; }
+    @media(max-width:900px){ .team-grid{grid-template-columns:repeat(2,1fr);} }
+    @media(max-width:500px){ .team-grid{grid-template-columns:1fr;} }
+    .team-card { text-align:center; padding:2rem 1.5rem; background:#fff; border:1px solid var(--border); border-radius:12px; transition:all 0.25s; }
+    .team-card:hover { transform:translateY(-4px); box-shadow:var(--shadow-lg); border-color:var(--spring); }
+    /* No green ring on photos */
+    .team-avatar { width:90px; height:90px; border-radius:50%; margin:0 auto 1rem; object-fit:cover; border:none; display:block; }
+    .team-avatar-fallback { width:90px; height:90px; border-radius:50%; margin:0 auto 1rem; display:none; align-items:center; justify-content:center; font-family:'Cormorant Garamond', serif; font-size:1.8rem; font-weight:700; color:var(--spring-ink); background:var(--spring-pale2); border:2px solid var(--border); }
+    .team-card h3 { font-size:0.88rem; font-weight:600; margin-bottom:0.3rem; color:var(--spring-ink); }
+    .team-card p { font-size:0.77rem; color:var(--muted); line-height:1.45; }
+
+    /* ══════════════════════════════════════  CTA  ══ */
+    .cta-banner {
+      background:linear-gradient(130deg, var(--spring-ink) 0%, var(--spring-deep) 60%, #033a1a 100%);
+      padding:80px 5%; text-align:center; position:relative; overflow:hidden;
+    }
+    .cta-banner::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 60% 50%, rgba(74,222,128,0.12) 0%, transparent 65%); }
+    .cta-banner h2 { font-family:'Cormorant Garamond', serif; font-size:clamp(2rem,4vw,3rem); color:#fff; margin-bottom:0.8rem; position:relative; }
+    .cta-banner p { color:rgba(255,255,255,0.72); margin-bottom:2rem; font-size:0.95rem; position:relative; }
+    .cta-banner-btns { display:flex; gap:1rem; justify-content:center; flex-wrap:wrap; position:relative; }
+
+    /* ══════════════════════════════════════  FOOTER  ══ */
+    footer { background:var(--spring-ink); color:#fff; padding:60px 5% 28px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; padding-bottom:3rem; border-bottom:1px solid rgba(74,222,128,0.12); }
+    @media(max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:500px){ .footer-grid{grid-template-columns:1fr;} }
+    .footer-logo { font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-weight:700; color:#fff; margin-bottom:0.4rem; }
+    .footer-logo span { color:var(--spring); }
+    .footer-caption { font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--spring); font-style:italic; margin-bottom:1rem; }
+    .footer-brand p { font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; }
+    .footer-col h4 { font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--spring); margin-bottom:1.2rem; }
+    .footer-col ul { display:flex; flex-direction:column; gap:0.7rem; }
+    .footer-col ul a { font-size:0.82rem; color:rgba(255,255,255,0.5); transition:color 0.2s; }
+    .footer-col ul a:hover { color:var(--spring); }
+    .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; padding-top:1.5rem; font-size:0.74rem; color:rgba(255,255,255,0.3); }
+
+    /* ── FADE-UP ── */
+    .fade-up { opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
   </style>
 </head>
 <body>
@@ -196,10 +303,10 @@
 <!-- NAV -->
 <nav id="main-nav">
   <a href="index.html" class="nav-logo">
-<img src="amicom-logo.jpeg" alt="AMICOM Logo" style="height:44px; width:auto;"/>
-    <div>
-      <span class="nav-logo-text">AMICOM<span>.</span></span>
-      <span class="nav-logo-sub">Analytics</span>
+    <img src="amicom-logo.png" alt="AMICOM Logo"/>
+    <div class="nav-logo-wrap">
+      <span class="nav-logo-text">AMICOM Analytics<span>.</span></span>
+      <span class="nav-caption">Science at the core, quality at every step</span>
     </div>
   </a>
   <ul class="nav-links">
@@ -211,54 +318,108 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- HERO CAROUSEL -->
 <section class="hero" id="home">
-  <div class="hero-grid"></div>
-  <div class="hero-glow"></div>
-  <div class="hero-content">
-    <div class="hero-badge">
-      <div class="hero-badge-dot"></div>
-      Analytical &amp; Biopharma Services
-    </div>
-    <h1>A Solution for<br/><em>Biologics &amp; Non-Biologic</em><br/>Complex Drugs</h1>
+  <div class="hero-carousel-outer">
+    <div class="hero-carousel-track" id="heroTrack">
 
-    <div class="ticker-container">
-      <div class="ticker-inner">
-        <div class="ticker-item">One-Stop Solution for Peptides &amp; Non-Biological Complex Drugs Characterization</div>
-        <div class="ticker-item">Offering Comprehensive Testing Profile for Iron Paramagnetic Properties Evaluation</div>
-        <div class="ticker-item">Regulatory-Ready Documentation Aligned with Global GMP &amp; GLP Standards</div>
+      <!-- SLIDE 0: Company Info -->
+      <div class="hero-slide hslide-0">
+        <div class="hero-grid"></div>
+        <div class="hero-glow"></div>
+        <div class="hero-content fade-up">
+          <div class="hero-badge">
+            <div class="hero-badge-dot"></div>
+            Analytical &amp; Biopharma Services
+          </div>
+          <h1>A Solution for<br/><em>Biologics &amp; Non-Biologic</em><br/>Complex Drugs</h1>
+          <p class="hero-desc">
+            <strong style="color:var(--spring-ink);">AMICOM Analytics</strong> is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for both biologics and non-biological complex drugs (NBCDs). We deliver end-to-end characterization aligned with global GMP and GLP standards — WHO, CDSCO, FDA, EMA.
+          </p>
+          <div class="hero-btns">
+            <a href="services.html" class="btn btn-primary">Explore Services</a>
+            <a href="contact.html" class="btn btn-outline">Request a Quote</a>
+          </div>
+          <div class="hero-stats">
+            <div class="stat">
+              <div class="stat-num">10<sup>+</sup></div>
+              <div class="stat-label">Years Combined Experience</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">6</div>
+              <div class="stat-label">Service Verticals</div>
+            </div>
+            <div class="stat">
+              <div class="stat-num">100<span style="font-size:1.4rem;">%</span></div>
+              <div class="stat-label">Regulatory Aligned</div>
+            </div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <p class="hero-desc">
-      <strong style="color:rgba(255,255,255,0.9);">AMICOM Analytics</strong> is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for both biologics and non-biological complex drugs (NBCDs). We deliver end-to-end characterization aligned with global GMP and GLP standards — WHO, CDSCO, FDA, EMA.
-    </p>
-    <div class="hero-btns">
-      <a href="services.html" class="btn btn-primary">Explore Services</a>
-      <a href="contact.html" class="btn btn-outline-white">Request a Quote</a>
+      <!-- SLIDE 1: Peptides & NBCDs -->
+      <div class="hero-slide hslide-tag">
+        <div class="htag-img">
+          <div class="hero-grid" style="opacity:0.5;"></div>
+          <div class="htag-img-circle">
+            <svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg>
+          </div>
+          <span class="htag-img-caption">Add image here</span>
+        </div>
+        <div class="htag-body">
+          <div class="htag-num">1</div>
+          <div class="htag-cat">Characterization</div>
+          <h2>One-Stop Solution for Peptides &amp; Non-Biological Complex Drugs Characterization</h2>
+          <p>Comprehensive end-to-end characterization for peptides and NBCDs — from physicochemical profiling to regulatory-ready documentation, all under one roof.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 2: Iron Paramagnetic -->
+      <div class="hero-slide hslide-tag">
+        <div class="htag-img">
+          <div class="hero-grid" style="opacity:0.5;"></div>
+          <div class="htag-img-circle">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+          </div>
+          <span class="htag-img-caption">Add image here</span>
+        </div>
+        <div class="htag-body">
+          <div class="htag-num">2</div>
+          <div class="htag-cat">Iron Formulations</div>
+          <h2>Comprehensive Testing Profile for Iron Paramagnetic Properties Evaluation</h2>
+          <p>Advanced analytical profiling of iron-based complex formulations including paramagnetic characterization, impurity testing, and bioequivalence studies.</p>
+        </div>
+      </div>
+
+      <!-- SLIDE 3: Regulatory -->
+      <div class="hero-slide hslide-tag">
+        <div class="htag-img">
+          <div class="hero-grid" style="opacity:0.5;"></div>
+          <div class="htag-img-circle">
+            <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+          </div>
+          <span class="htag-img-caption">Add image here</span>
+        </div>
+        <div class="htag-body">
+          <div class="htag-num">3</div>
+          <div class="htag-cat">Regulatory</div>
+          <h2>Regulatory-Ready Documentation Aligned with Global GMP &amp; GLP Standards</h2>
+          <p>Audit-ready reports and dossiers fully compliant with WHO, CDSCO, FDA, and EMA expectations — ensuring your submission is prepared right the first time.</p>
+        </div>
+      </div>
+
     </div>
-    <div class="hero-stats">
-      <div class="stat"><div class="stat-num">25+</div><div class="stat-label">Years Combined Experience</div></div>
-      <div class="stat"><div class="stat-num">6</div><div class="stat-label">Service Verticals</div></div>
-      <div class="stat"><div class="stat-num">100%</div><div class="stat-label">Regulatory Aligned</div></div>
-    </div>
+  </div>
+
+  <!-- Carousel Controls -->
+  <div class="hero-controls">
+    <button class="hero-arr" id="heroPrev">&#8249;</button>
+    <div class="hero-dots" id="heroDots"></div>
+    <button class="hero-arr" id="heroNext">&#8250;</button>
   </div>
 </section>
 
-<!-- INTRO STRIP -->
-<div class="intro-strip">
-  <p>Backed by strong scientific and quality expertise, we deliver end-to-end characterization ensuring compliance, integrity, and regulatory-ready documentation aligned with global quality standards.</p>
-  <div class="cert-logos">
-    <span class="cert-badge">ISO / IEC</span>
-    <span class="cert-badge">GMP</span>
-    <span class="cert-badge">GLP</span>
-    <span class="cert-badge">ICH</span>
-    <span class="cert-badge">FDA</span>
-    <span class="cert-badge">EMA</span>
-  </div>
-</div>
-
-<!-- SERVICES PREVIEW -->
+<!-- SERVICES -->
 <section class="section fade-up" id="services">
   <div style="text-align:center; max-width:600px; margin:0 auto 3rem;">
     <p class="section-label">What We Offer</p>
@@ -267,39 +428,33 @@
   </div>
   <div class="services-grid fade-up">
     <a class="svc-card" href="services.html#analytical">
-      <div class="svc-num">01</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9 3H5a2 2 0 00-2 2v4m6-6h10a2 2 0 012 2v4M9 3v18m0 0h10a2 2 0 002-2V9M9 21H5a2 2 0 01-2-2V9m0 0h18"/></svg></div>
       <div class="svc-title">Analytical &amp; Testing Services</div>
-      <div class="svc-desc">Method development &amp; validation, stability testing, impurity profiling, dissolution studies — ICH Q2 aligned.</div>
       <span class="svc-link">Learn More →</span>
     </a>
     <a class="svc-card" href="services.html#nbcd">
-      <div class="svc-num">02</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
       <div class="svc-title">Non-Biologic Complex Drug Analysis / IVBE</div>
-      <div class="svc-desc">Iron paramagnetic properties, molecular weight distribution, IVBE studies — comprehensive NBCD characterization.</div>
       <span class="svc-link">Learn More →</span>
     </a>
     <a class="svc-card" href="services.html#biosimilar">
-      <div class="svc-num">03</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg></div>
       <div class="svc-title">Physico-Chemical Characterization for Biosimilars</div>
-      <div class="svc-desc">Primary structure, higher-order structure, PTMs, purity &amp; impurities — complete biosimilar characterization.</div>
       <span class="svc-link">Learn More →</span>
     </a>
     <a class="svc-card" href="services.html#bioprocess">
-      <div class="svc-num">04</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M8.5 14.5A2.5 2.5 0 0011 12c0-1.38-.5-2-1-3-1.072-2.143-.224-4.054 2-6 .5 2.5 2 4.9 4 6.5 2 1.6 3 3.5 3 5.5a7 7 0 01-14 0c0-1.153.433-2.294 1-3a2.5 2.5 0 002.5 2.5z"/></svg></div>
       <div class="svc-title">Bioprocess Related Impurities</div>
-      <div class="svc-desc">HCP, residual DNA, process additives — comprehensive upstream &amp; downstream impurity testing.</div>
       <span class="svc-link">Learn More →</span>
     </a>
     <a class="svc-card" href="services.html#el">
-      <div class="svc-num">05</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M9 3l-6 9h6l-1 9 13-12h-7l2-6z"/></svg></div>
       <div class="svc-title">Extractables &amp; Leachables</div>
-      <div class="svc-desc">LC-MS/MS, GC-MS, ICP-MS platforms — protocol-driven E&amp;L studies for regulatory submissions.</div>
       <span class="svc-link">Learn More →</span>
     </a>
     <a class="svc-card" href="services.html#nitrosamines">
-      <div class="svc-num">06</div>
+      <div class="svc-icon"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div>
       <div class="svc-title">Nitrosamines &amp; NDSRIs</div>
-      <div class="svc-desc">Ultra-trace detection, NDSRI identification, risk assessment &amp; regulatory submission support.</div>
       <span class="svc-link">Learn More →</span>
     </a>
   </div>
@@ -316,83 +471,73 @@
   </div>
   <div class="grid-4 fade-up">
     <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
-      </div>
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
       <h3>Quality-Driven Analysis</h3>
       <p>Accurate, compliant, and reproducible analytical results using validated scientific methods.</p>
     </div>
     <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      </div>
+      <div class="why-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div>
       <h3>Fast Turnaround Time</h3>
       <p>Optimized workflows ensuring rapid project execution without compromising data integrity.</p>
     </div>
     <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      </div>
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
       <h3>One-Stop Solution</h3>
-      <p>Comprehensive analytical &amp; biopharma services for New Biological and Chemical Drugs under one platform.</p>
+      <p>Comprehensive services for New Biological and Chemical Drugs under one platform.</p>
     </div>
     <div class="why-card">
-      <div class="why-icon">
-        <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      </div>
+      <div class="why-icon"><svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg></div>
       <h3>Versatile Scientific Excellence</h3>
-      <p>Multidisciplinary expertise supported by advanced technologies and experienced scientific professionals.</p>
+      <p>Multidisciplinary expertise backed by advanced technologies and seasoned scientists.</p>
     </div>
   </div>
 </section>
 
 <!-- BUSINESS MODEL -->
 <section class="section fade-up">
-  <div class="grid-2" style="align-items:center; gap:4rem;">
+  <div class="grid-2">
     <div>
       <p class="section-label">Our Approach</p>
       <h2 class="section-title">Business Model &amp; Relationships</h2>
-      <p class="section-sub">Our business relations are built on ethics-driven, strong trust-based, and transparent partnerships with long-term collaborations, scientific excellence, and regulatory compliance.</p>
-      <br/>
-      <div class="model-flow">
-        <div class="model-step"><h4>Understand</h4><p>Scientific Needs</p></div>
-        <div class="model-arrow">→</div>
-        <div class="model-step"><h4>Partner</h4><p>Trusted Collaboration</p></div>
-        <div class="model-arrow">→</div>
-        <div class="model-step"><h4>Deliver</h4><p>Quality Outcomes</p></div>
+      <p class="section-sub">Our business relations are built on ethics-driven, trust-based, and transparent partnerships — founded on long-term collaboration, scientific excellence, and regulatory compliance.</p>
+
+      <div class="model-track">
+        <div class="model-step">
+          <div class="model-step-num">1</div>
+          <h4>Understand</h4>
+          <p>Scientific Needs</p>
+        </div>
+        <div class="model-arrow-badge">›</div>
+        <div class="model-step">
+          <div class="model-step-num">2</div>
+          <h4>Partner</h4>
+          <p>Trusted Collaboration</p>
+        </div>
+        <div class="model-arrow-badge">›</div>
+        <div class="model-step">
+          <div class="model-step-num">3</div>
+          <h4>Deliver</h4>
+          <p>Quality Outcomes</p>
+        </div>
       </div>
-      <br/>
+
       <a href="about.html" class="btn btn-outline">About Our Company →</a>
     </div>
+
     <div>
       <p class="section-label">Quality &amp; Compliance</p>
-      <div style="display:flex; flex-direction:column; gap:1rem; margin-top:1rem;">
-        <div class="card" style="padding:1.2rem 1.5rem;">
-          <div class="card-accent"></div>
-          <strong style="font-size:0.85rem;">Compliance with global GMP and GLP expectations</strong>
-        </div>
-        <div class="card" style="padding:1.2rem 1.5rem;">
-          <div class="card-accent"></div>
-          <strong style="font-size:0.85rem;">Regulatory-aligned documentation and reporting</strong>
-        </div>
-        <div class="card" style="padding:1.2rem 1.5rem;">
-          <div class="card-accent"></div>
-          <strong style="font-size:0.85rem;">Data integrity and traceability systems</strong>
-        </div>
-        <div class="card" style="padding:1.2rem 1.5rem;">
-          <div class="card-accent"></div>
-          <strong style="font-size:0.85rem;">Audit-ready quality management framework</strong>
-        </div>
-        <div class="card" style="padding:1.2rem 1.5rem;">
-          <div class="card-accent"></div>
-          <strong style="font-size:0.85rem;">Confidential and secure data handling</strong>
-        </div>
+      <div style="display:flex; flex-direction:column; gap:0.9rem; margin-top:1rem;">
+        <div class="card" style="padding:1.1rem 1.4rem;"><div class="card-accent"></div><strong style="font-size:0.85rem; color:var(--spring-ink);">Compliance with global GMP and GLP expectations</strong></div>
+        <div class="card" style="padding:1.1rem 1.4rem;"><div class="card-accent"></div><strong style="font-size:0.85rem; color:var(--spring-ink);">Regulatory-aligned documentation and reporting</strong></div>
+        <div class="card" style="padding:1.1rem 1.4rem;"><div class="card-accent"></div><strong style="font-size:0.85rem; color:var(--spring-ink);">Data integrity and traceability systems</strong></div>
+        <div class="card" style="padding:1.1rem 1.4rem;"><div class="card-accent"></div><strong style="font-size:0.85rem; color:var(--spring-ink);">Audit-ready quality management framework</strong></div>
+        <div class="card" style="padding:1.1rem 1.4rem;"><div class="card-accent"></div><strong style="font-size:0.85rem; color:var(--spring-ink);">Confidential and secure data handling</strong></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- TEAM PREVIEW -->
+<!-- TEAM -->
 <section class="section section-alt fade-up">
   <div style="display:flex; justify-content:space-between; align-items:flex-end; margin-bottom:2.5rem; flex-wrap:wrap; gap:1rem;">
     <div>
@@ -403,29 +548,33 @@
   </div>
   <div class="team-grid fade-up">
     <div class="team-card">
-      <div class="team-avatar" style="background:linear-gradient(135deg,#3d6b4f,#254235);">SR</div>
+      <img class="team-avatar" src="ramakrishna.JPG" alt="Dr. Sri Rama Krishna S." onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+      <div class="team-avatar-fallback">SR</div>
       <h3>Dr. Sri Rama Krishna S.</h3>
       <p>Co-Founder &amp; Director – Operations</p>
     </div>
     <div class="team-card">
-      <div class="team-avatar" style="background:linear-gradient(135deg,#4e8a65,#3d6b4f);">SY</div>
+      <img class="team-avatar" src="sanjeeva.JPG" alt="Dr. Sanjeeva Yakarla" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+      <div class="team-avatar-fallback">SY</div>
       <h3>Dr. Sanjeeva Yakarla</h3>
       <p>Co-Founder &amp; Director – Techno Commercial</p>
     </div>
     <div class="team-card">
-      <div class="team-avatar" style="background:linear-gradient(135deg,#c9a84c,#a0823a);">AV</div>
+      <img class="team-avatar" src="venky.JPG" alt="Dr. A. Venkateshwarlu" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+      <div class="team-avatar-fallback">AV</div>
       <h3>Dr. A. Venkateshwarlu</h3>
       <p>Head, Quality Management System &amp; Safety</p>
     </div>
     <div class="team-card">
-      <div class="team-avatar" style="background:linear-gradient(135deg,#254235,#3d6b4f);">PC</div>
+      <img class="team-avatar" src="prashanth.JPG" alt="Dr. Prashanth Chiliveri" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"/>
+      <div class="team-avatar-fallback">PC</div>
       <h3>Dr. Prashanth Chiliveri</h3>
       <p>Head, Technical</p>
     </div>
   </div>
 </section>
 
-<!-- CTA BANNER -->
+<!-- CTA -->
 <section class="cta-banner fade-up">
   <h2>Ready to Partner with AMICOM Analytics?</h2>
   <p>Talk to our experts about your analytical, characterization, and regulatory needs.</p>
@@ -439,7 +588,8 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="footer-logo">AMICOM<span>.</span></div>
+      <div class="footer-logo">AMICOM Analytics<span>.</span></div>
+      <div class="footer-caption">Science at the core, quality at every step</div>
       <p>AMICOM Analytics LLP is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for biologics and NBCDs.</p>
       <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>
     </div>
@@ -467,9 +617,9 @@
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:info@amicomanalytics.com">info@amicomanalytics.com</a></li>
-        <li><a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a></li>
-        <li style="margin-top:0.8rem; color:rgba(255,255,255,0.3); font-size:0.78rem;">AMICOM Analytics LLP<br/>IDA Cherlapally, Hyderabad<br/>Telangana 500 051, India</li>
+        <li><a href="mailto:info@amicomlabs.com">info@amicomlabs.com</a></li>
+        <li><a href="tel:040-45608340">040-45608340</a></li>
+        <li style="margin-top:0.8rem; color:rgba(255,255,255,0.28); font-size:0.78rem;">AMICOM Analytics LLP<br/>IDA Cherlapally, Hyderabad<br/>Telangana 500 051, India</li>
       </ul>
     </div>
   </div>
@@ -479,6 +629,62 @@
   </div>
 </footer>
 
-<script src="main.js"></script>
+<script>
+  /* Footer year */
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  /* Fade-up observer */
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+  /* Nav shadow on scroll */
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(22,163,74,0.12)' : 'none';
+  });
+
+  /* Hero Carousel */
+  const track = document.getElementById('heroTrack');
+  const dotsWrap = document.getElementById('heroDots');
+  const TOTAL = 4;
+  let cur = 0;
+  let autoTimer;
+
+  const dots = Array.from({ length: TOTAL }, (_, i) => {
+    const d = document.createElement('button');
+    d.className = 'hero-dot' + (i === 0 ? ' active' : '');
+    d.setAttribute('aria-label', 'Slide ' + (i + 1));
+    d.addEventListener('click', () => goTo(i));
+    dotsWrap.appendChild(d);
+    return d;
+  });
+
+  function goTo(n) {
+    cur = (n + TOTAL) % TOTAL;
+    track.style.transform = 'translateX(-' + (cur * 100) + '%)';
+    dots.forEach((d, i) => d.className = 'hero-dot' + (i === cur ? ' active' : ''));
+    resetAuto();
+  }
+
+  function resetAuto() {
+    clearInterval(autoTimer);
+    autoTimer = setInterval(() => goTo(cur + 1), 5000);
+  }
+
+  document.getElementById('heroPrev').addEventListener('click', () => goTo(cur - 1));
+  document.getElementById('heroNext').addEventListener('click', () => goTo(cur + 1));
+
+  /* Swipe support */
+  let touchStartX = 0;
+  track.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
+  track.addEventListener('touchend', e => {
+    const diff = touchStartX - e.changedTouches[0].clientX;
+    if (Math.abs(diff) > 50) goTo(diff > 0 ? cur + 1 : cur - 1);
+  });
+
+  resetAuto();
+</script>
 </body>
 </html>

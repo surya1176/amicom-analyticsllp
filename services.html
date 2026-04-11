@@ -4,62 +4,262 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Services – AMICOM Analytics</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    .service-tabs { display: flex; gap: 0.5rem; flex-wrap: wrap; margin-bottom: 3rem; padding: 0.4rem; background: var(--light-bg); border-radius: 8px; }
+    /* ════════════════════════════════════════════════════════ */
+    /* COLOR SYSTEM MATCHED TO ABOUT US PAGE                  */
+    /* ════════════════════════════════════════════════════════ */
+    :root {
+      /* Primary Brand Colors (From About Us) */
+      --spring:       #4ade80;      /* Vibrant green */
+      --spring-dim:   #16a34a;      /* Darker green, interactive */
+      --spring-deep:  #15803d;      /* Deep forest green */
+      --spring-ink:   #052e16;      /* Darkest green, typography */
+      
+      /* Supportive Palette (From About Us) */
+      --spring-pale:  #f0fff6;      /* Lightest tint, backgrounds */
+      --spring-pale2: #dcfce7;      /* Medium light, hero sections */
+      --spring-pale3: #f0fff6;      /* Very light, surfaces */
+      
+      /* Neutral & Functional (From About Us) */
+      --dark:         #052e16;      /* Near black, text */
+      --gray:         #2d4a38;      /* Primary body text */
+      --muted:        #4b7a5e;      /* Secondary text */
+      --border:       #bbf7d0;      /* Borders, dividers */
+      --white:        #ffffff;      /* Pure white */
+      --surface:      #f0fff6;      /* Subtle background */
+      
+      /* Shadow effects */
+      --shadow:       0 4px 20px rgba(22,163,74,0.10);
+      --shadow-lg:    0 12px 44px rgba(22,163,74,0.18);
+      
+      /* Accent for footer */
+      --accent:       #4ade80;      /* Spring green */
+    }
+
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans', sans-serif; background:var(--white); color:var(--dark); overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
+    ul { list-style:none; }
+
+    /* ── BUTTONS ── */
+    .btn { 
+      display:inline-flex; align-items:center; gap:0.4rem; 
+      padding:0.75rem 1.6rem; border-radius:7px; font-size:0.85rem; 
+      font-weight:600; letter-spacing:0.03em; transition:all 0.22s; 
+      cursor:pointer; border:none; 
+    }
+    .btn-primary { background:var(--spring-dim); color:#fff; }
+    .btn-primary:hover { background:var(--spring-deep); transform:translateY(-2px); box-shadow:0 8px 24px rgba(22,163,74,0.30); }
+    .btn-outline { background:transparent; color:var(--spring-deep); border:1.5px solid var(--spring-dim); }
+    .btn-outline:hover { background:var(--spring-pale); }
+
+    /* ── NAV ── */
+    #main-nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 5%; background:rgba(255,255,255,0.97);
+      backdrop-filter:blur(14px); border-bottom:1px solid var(--border);
+      height:72px; transition:box-shadow 0.3s;
+    }
+    .nav-logo { display:flex; align-items:center; gap:0.8rem; }
+    .nav-logo img { height:52px; width:auto; }
+    .nav-logo-wrap { display:flex; flex-direction:column; line-height:1.15; }
+    .nav-logo-text { 
+      font-family:'Cormorant Garamond', serif; 
+      font-size:1.28rem; font-weight:700; 
+      color:var(--spring-ink); white-space:nowrap; 
+    }
+    .nav-logo-text span { color:var(--spring-dim); }
+    .nav-caption { 
+      font-size:0.6rem; color:var(--spring-deep); 
+      letter-spacing:0.1em; text-transform:uppercase; font-style:italic; 
+    }
+    .nav-links { display:flex; align-items:center; gap:2rem; }
+    .nav-links a { font-size:0.85rem; font-weight:500; color:var(--gray); transition:color 0.2s; }
+    .nav-links a:not(.nav-cta):hover { color:var(--spring-deep); }
+    .nav-cta { background:var(--spring-dim); color:#fff !important; padding:0.5rem 1.2rem; border-radius:7px; font-weight:600 !important; }
+    .nav-cta:hover { background:var(--spring-deep) !important; transform:translateY(-1px); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height:42vh;
+      display:flex; align-items:center;
+      padding:120px 5% 80px;
+      background:linear-gradient(145deg, var(--spring-pale) 0%, var(--spring-pale2) 50%, var(--spring-pale) 100%);
+      position:relative; overflow:hidden;
+    }
+    .page-hero-grid {
+      position:absolute; inset:0; opacity:0.45;
+      background-image:linear-gradient(rgba(74,222,128,0.13) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(74,222,128,0.13) 1px, transparent 1px);
+      background-size:60px 60px;
+    }
+    .page-hero-glow {
+      position:absolute; right:-8%; top:0; width:50vw; height:100%;
+      background:radial-gradient(ellipse, rgba(74,222,128,0.2) 0%, transparent 68%);
+      pointer-events:none;
+    }
+    .page-hero-content { position:relative; z-index:2; max-width:680px; }
+    .page-hero h1 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(2.2rem,4.5vw,3.5rem); font-weight:600;
+      color:var(--spring-ink); line-height:1.1; margin-bottom:1rem;
+    }
+    .page-hero h1 em { color:var(--spring-dim); font-style:normal; }
+    .page-hero p { font-size:0.92rem; color:var(--muted); line-height:1.8; font-weight:300; max-width:580px; }
+
+    .section-label {
+      font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+      color:var(--spring-dim); font-weight:600; margin-bottom:0.7rem;
+      display:flex; align-items:center; gap:0.5rem;
+    }
+    .section-label::before { content:''; display:inline-block; width:20px; height:2px; background:var(--spring-dim); border-radius:2px; }
+
+    /* ── STICKY TAB NAV ── */
+    .svc-nav {
+      position:sticky; top:72px; z-index:100;
+      background:var(--white); border-bottom:1px solid var(--border);
+      padding:0 5%; overflow-x:auto;
+      box-shadow: 0 2px 12px rgba(22,163,74,0.08);
+    }
+    .svc-nav::-webkit-scrollbar { height:3px; }
+    .svc-nav::-webkit-scrollbar-thumb { background:var(--spring-pale2); border-radius:2px; }
+    .service-tabs { display:flex; gap:0; white-space:nowrap; padding:0; background:transparent; }
     .tab-btn {
-      padding: 0.55rem 1.1rem; border-radius: 6px; border: none; cursor: pointer;
-      font-family: inherit; font-size: 0.8rem; font-weight: 500; color: var(--gray);
-      background: transparent; transition: all 0.2s; letter-spacing: 0.03em;
+      padding:1rem 1.2rem; border:none; cursor:pointer;
+      font-family:'DM Sans', sans-serif; font-size:0.78rem; font-weight:500;
+      color:var(--muted); background:transparent;
+      border-bottom:2px solid transparent;
+      transition:all 0.2s; letter-spacing:0.03em; white-space:nowrap;
     }
-    .tab-btn:hover { color: var(--green); background: white; }
-    .tab-btn.active { background: var(--green); color: white; }
+    .tab-btn:hover { color:var(--spring-deep); background: var(--spring-pale); }
+    .tab-btn.active { color:var(--spring-deep); border-bottom-color:var(--spring-dim); font-weight:600; background:var(--spring-pale); }
 
-    .service-section {
-      display: none; animation: fadeIn 0.3s ease;
-    }
-    .service-section.active { display: block; }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+    /* ── MAIN SECTION ── */
+    .main-section { padding:50px 5% 80px; }
 
+    .service-section { display:none; animation:fadeIn 0.3s ease; }
+    .service-section.active { display:block; }
+    @keyframes fadeIn { from{ opacity:0; transform:translateY(8px); } to{ opacity:1; transform:none; } }
+
+    /* ── SERVICE HEADER ── */
     .service-header {
-      display: flex; align-items: flex-start; gap: 2rem; margin-bottom: 2.5rem;
-      padding: 2rem; background: var(--light-bg); border-radius: 12px;
-      border-left: 4px solid var(--green);
+      display:flex; align-items:flex-start; gap:2rem; margin-bottom:2.5rem;
+      padding:2rem 2rem 2rem 2.5rem;
+      background:linear-gradient(135deg, var(--spring-pale) 0%, var(--spring-pale) 100%);
+      border-left:4px solid var(--spring-dim);
+      border-radius:12px;
+      border:1px solid var(--border);
+      box-shadow:var(--shadow);
     }
     .service-num-big {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 4rem; font-weight: 700; color: var(--border); line-height: 1; flex-shrink: 0;
+      font-family:'Cormorant Garamond', serif;
+      font-size:4rem; font-weight:700; color:var(--border); line-height:1; flex-shrink:0;
     }
-    .service-header h2 { font-size: 1.4rem; font-weight: 600; margin-bottom: 0.5rem; }
-    .service-header p { font-size: 0.9rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
+    .service-header h2 { font-size:1.4rem; font-weight:600; margin-bottom:0.5rem; color:var(--spring-ink); }
+    .service-header p { font-size:0.875rem; color:var(--gray); line-height:1.8; font-weight:300; }
 
-    .bullet-list { list-style: none; }
+    /* ── BULLET LIST ── */
     .bullet-list li {
-      padding: 0.5rem 0 0.5rem 1.5rem; font-size: 0.875rem; color: var(--gray);
-      border-bottom: 1px solid var(--border); position: relative; line-height: 1.5;
+      padding:0.5rem 0 0.5rem 1.6rem; font-size:0.875rem; color:var(--gray);
+      border-bottom:1px solid var(--border); position:relative; line-height:1.55;
     }
-    .bullet-list li:last-child { border-bottom: none; }
-    .bullet-list li::before { content: '→'; position: absolute; left: 0; color: var(--green); font-weight: 600; }
+    .bullet-list li:last-child { border-bottom:none; }
+    .bullet-list li::before { content:'→'; position:absolute; left:0; color:var(--spring-dim); font-weight:600; }
+    .two-col-list { display:grid; grid-template-columns:1fr 1fr; gap:0 2.5rem; }
+    @media(max-width:640px){ .two-col-list{ grid-template-columns:1fr; } }
 
-    .two-col-list { display: grid; grid-template-columns: 1fr 1fr; gap: 0 2rem; }
-    @media(max-width:600px) { .two-col-list { grid-template-columns: 1fr; } }
+    /* ── TABLES ── */
+    .table-scroll { overflow-x:auto; margin-bottom:2rem; border-radius:10px; border:1px solid var(--border); }
+    table { width:100%; border-collapse:collapse; font-size:0.83rem; }
+    thead tr { background:linear-gradient(90deg, var(--spring-deep), var(--spring-ink)); }
+    thead th { 
+      padding:0.9rem 1rem; text-align:left; font-size:0.78rem; 
+      font-weight:600; color:white; letter-spacing:0.05em; text-transform:uppercase; 
+    }
+    tbody tr { border-bottom:1px solid var(--border); transition:background 0.15s; background:var(--white); }
+    tbody tr:nth-child(even) { background:var(--spring-pale); }
+    tbody tr:last-child { border-bottom:none; }
+    tbody tr:hover { background:var(--spring-pale2); }
+    tbody td { padding:0.75rem 1rem; color:var(--gray); line-height:1.55; vertical-align:top; }
+    tbody td strong { color:var(--spring-ink); }
 
-    .table-scroll { overflow-x: auto; }
+    /* subheadings inside service panels */
+    .sub-h3 {
+      font-size:0.95rem; font-weight:600; color:var(--spring-ink);
+      margin:2rem 0 1rem; padding-left:0.8rem;
+      border-left:3px solid var(--spring-dim);
+    }
 
-    .svc-nav {
-      position: sticky; top: 68px; z-index: 100; background: white;
-      border-bottom: 1px solid var(--border); padding: 0 5%;
+    /* ── CTA STRIP ── */
+    .cta-strip {
+      background:linear-gradient(135deg, var(--spring-pale2) 0%, var(--spring-pale) 100%);
+      padding:60px 5%; text-align:center;
+      border-top:1px solid var(--border);
+    }
+    .cta-strip h2 { 
+      font-family:'Cormorant Garamond', serif; 
+      font-size:clamp(1.8rem,3vw,2.4rem); 
+      color:var(--spring-ink); margin-bottom:0.6rem; 
+    }
+    .cta-strip p { font-size:0.9rem; color:var(--muted); margin:0 auto 2rem; max-width:500px; }
+    .section-title { 
+      font-family:'Cormorant Garamond', serif; 
+      font-size:clamp(2rem,3.5vw,2.8rem); 
+      font-weight:600; color:var(--spring-ink); margin-bottom:0.8rem; 
+    }
+    .section-sub { font-size:0.9rem; color:var(--muted); line-height:1.8; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--spring-ink); color:#fff; padding:60px 5% 28px; }
+    .footer-grid { 
+      display:grid; grid-template-columns:2fr 1fr 1fr 1fr; 
+      gap:3rem; padding-bottom:3rem; 
+      border-bottom:1px solid rgba(74,222,128,0.12); 
+    }
+    @media(max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:500px){ .footer-grid{grid-template-columns:1fr;} }
+    .footer-logo { 
+      font-family:'Cormorant Garamond', serif; 
+      font-size:1.6rem; font-weight:700; color:#fff; margin-bottom:0.4rem; 
+    }
+    .footer-logo span { color:var(--accent); }
+    .footer-caption { 
+      font-size:0.62rem; letter-spacing:0.12em; 
+      text-transform:uppercase; color:var(--accent); font-style:italic; margin-bottom:1rem; 
+    }
+    .footer-brand p { 
+      font-size:0.82rem; color:rgba(255,255,255,0.5); 
+      line-height:1.75; font-weight:300; 
+    }
+    .footer-col h4 { 
+      font-size:0.78rem; font-weight:600; text-transform:uppercase; 
+      letter-spacing:0.1em; color:var(--accent); margin-bottom:1.2rem; 
+    }
+    .footer-col ul { display:flex; flex-direction:column; gap:0.7rem; }
+    .footer-col ul a { 
+      font-size:0.82rem; color:rgba(255,255,255,0.5); 
+      transition:color 0.2s; 
+    }
+    .footer-col ul a:hover { color:var(--accent); }
+    .footer-bottom { 
+      display:flex; justify-content:space-between; flex-wrap:wrap; 
+      gap:0.5rem; padding-top:1.5rem; font-size:0.74rem; 
+      color:rgba(255,255,255,0.3); 
     }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="main-nav">
   <a href="index.html" class="nav-logo">
-<img src="amicom-logo.jpeg" alt="AMICOM Logo" style="height:44px; width:auto;"/>
-    <div>
-      <span class="nav-logo-text">AMICOM<span>.</span></span>
-      <span class="nav-logo-sub">Analytics</span>
+    <img src="amicom-logo.png" alt="AMICOM Logo"/>
+    <div class="nav-logo-wrap">
+      <span class="nav-logo-text">AMICOM Analytics<span>.</span></span>
+      <span class="nav-caption">Science at the core, quality at every step</span>
     </div>
   </a>
   <ul class="nav-links">
@@ -71,30 +271,35 @@
   </ul>
 </nav>
 
+<!-- PAGE HERO -->
 <div class="page-hero">
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-glow"></div>
   <div class="page-hero-content">
-    <p class="section-label light" style="margin-bottom:1rem;">Our Capabilities</p>
+    <p class="section-label">Our Capabilities</p>
     <h1>Comprehensive<br/><em>Analytical Services</em></h1>
-    <p>Our analytical services span a broad portfolio from small molecules to highly complex biologics — including peptides, proteins, NBCDs, bioprocess impurities, extractables &amp; leachables, and nitrosamines — delivering reliable, end-to-end solutions aligned with global regulatory expectations.</p>
+    <p>Our analytical services span a broad portfolio from small molecules to highly complex biologics — including peptides, proteins, NBCDs, bioprocess impurities, extractables &amp; leachables, nitrosamines, and food testing — delivering reliable, end-to-end solutions aligned with global regulatory expectations.</p>
   </div>
 </div>
 
-<!-- STICKY TABS NAV -->
+<!-- STICKY TABS -->
 <div class="svc-nav">
-  <div class="service-tabs" style="padding:0.6rem 0; background:transparent; border-radius:0; gap:0;">
-    <button class="tab-btn active" onclick="showService('analytical')">01 · Analytical &amp; Testing</button>
-    <button class="tab-btn" onclick="showService('nbcd')">02 · NBCD / IVBE</button>
-    <button class="tab-btn" onclick="showService('biosimilar')">03 · Biosimilar Characterization</button>
-    <button class="tab-btn" onclick="showService('bioprocess')">04 · Bioprocess Impurities</button>
-    <button class="tab-btn" onclick="showService('el')">05 · Extractables &amp; Leachables</button>
-    <button class="tab-btn" onclick="showService('nitrosamines')">06 · Nitrosamines &amp; NDSRIs</button>
+  <div class="service-tabs">
+    <button class="tab-btn active"  onclick="showService('analytical')">01 · Analytical &amp; Testing</button>
+    <button class="tab-btn"         onclick="showService('nbcd')">02 · NBCD / IVBE</button>
+    <button class="tab-btn"         onclick="showService('peptide')">03 · Peptide Characterization</button>
+    <button class="tab-btn"         onclick="showService('biosimilar')">04 · Biosimilar Characterization</button>
+    <button class="tab-btn"         onclick="showService('bioprocess')">05 · Bioprocess Impurities</button>
+    <button class="tab-btn"         onclick="showService('el')">06 · Extractables &amp; Leachables</button>
+    <button class="tab-btn"         onclick="showService('nitrosamines')">07 · Nitrosamines &amp; NDSRIs</button>
+    <button class="tab-btn"         onclick="showService('food')">08 · Food Testing</button>
   </div>
 </div>
 
-<section class="section">
+<section class="main-section">
 
-  <!-- 01 ANALYTICAL -->
-  <div class="service-section active fade-up" id="analytical">
+  <!-- ═══ 01 ANALYTICAL ═══ -->
+  <div class="service-section active" id="analytical">
     <div class="service-header">
       <div class="service-num-big">01</div>
       <div>
@@ -121,29 +326,29 @@
     </div>
   </div>
 
-  <!-- 02 NBCD -->
-  <div class="service-section fade-up" id="nbcd">
+  <!-- ═══ 02 NBCD ═══ -->
+  <div class="service-section" id="nbcd">
     <div class="service-header">
       <div class="service-num-big">02</div>
       <div>
         <h2>Non-Biologic Complex Drug Analysis / IVBE Studies</h2>
-        <p>We possess strong scientific expertise and a proven track record in the analysis of <strong>Non-Biological Complex Drugs (NBCDs)</strong> and <strong>IVBE studies</strong>. Our team delivers scientifically rigorous, regulatory-compliant analytical solutions, with extensive experience and excellence in handling complex drug products — including comprehensive Iron Paramagnetic Properties Evaluation.</p>
+        <p>We possess strong scientific expertise and a proven track record in the analysis of <strong>Non-Biological Complex Drugs (NBCDs)</strong> and <strong>IVBE studies</strong>. Our team delivers scientifically rigorous, regulatory-compliant analytical solutions, with extensive experience in handling complex drug products — including comprehensive Iron Paramagnetic Properties Evaluation.</p>
       </div>
     </div>
     <div class="table-scroll">
-      <table class="styled-table">
+      <table>
         <thead><tr><th>Parameter / Test</th><th>Technique / Approach</th></tr></thead>
         <tbody>
           <tr><td>Molecular weight distribution (Mw, Mn, Mw/Mn)</td><td>GPC or SEC-MALS or AUC</td></tr>
-          <tr><td>Haemodialysis by IVDS method</td><td>Haemodialysis followed by ICPMS/AAS</td></tr>
+          <tr><td>Haemodialysis by IVDS method</td><td>Haemodialysis followed by ICPMS / AAS</td></tr>
           <tr><td>Labile Iron Assay</td><td>Micro Plate Reader</td></tr>
           <tr><td>Bleomycin Iron Assay</td><td>Micro Plate Reader</td></tr>
           <tr><td>Sodium Chloride content</td><td>Potentiometer</td></tr>
-          <tr><td>In-vitro Release time (T75)</td><td>UV Spectrophotometer</td></tr>
+          <tr><td>In-vitro Release time (T75) by UV</td><td>UV Spectrophotometer</td></tr>
           <tr><td>Kinetic Degradation by Alpha amylose</td><td>MMMR</td></tr>
           <tr><td>Iron core size and morphology</td><td>TEM, SAXS, AFM, Mössbauer Spectroscopy</td></tr>
           <tr><td>Crystallinity related to iron release and in vivo stability</td><td>Mössbauer Spectroscopy, Raman</td></tr>
-          <tr><td>Iron environment (valence state, spin state, coordination)</td><td>Mössbauer Spectroscopy, EPR, Raman</td></tr>
+          <tr><td>Iron environment (valence state, spin state, coordination state of iron atoms and details of ligand binding)</td><td>Mössbauer Spectroscopy, EPR, Raman</td></tr>
           <tr><td>Fe³⁺ to Fe²⁺ reduction potential and Fe(II) content</td><td>Polarography</td></tr>
           <tr><td>Magnetic properties</td><td>VSM-SQUID</td></tr>
           <tr><td>Carbohydrate content</td><td>HPLC</td></tr>
@@ -155,38 +360,69 @@
     </div>
   </div>
 
-  <!-- 03 BIOSIMILAR -->
-  <div class="service-section fade-up" id="biosimilar">
+  <!-- ═══ 03 PEPTIDE CHARACTERIZATION ═══ -->
+  <div class="service-section" id="peptide">
     <div class="service-header">
       <div class="service-num-big">03</div>
+      <div>
+        <h2>Peptide Characterization Services</h2>
+        <p>We offer comprehensive peptide characterization services using a wide range of advanced analytical platforms. From molecular weight confirmation and purity profiling to structural characterization and stability studies, our services support every stage of peptide drug development and regulatory submission.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Parameter / Test</th><th>Technique / Approach</th></tr></thead>
+        <tbody>
+          <tr><td>Molecular Weight &amp; Sequence Confirmation</td><td>LC-MS/MS</td></tr>
+          <tr><td>Purity &amp; Impurity Profiling</td><td>HPLC / UPLC (UV/PDA)</td></tr>
+          <tr><td>D/L Amino Acid Composition</td><td>Chiral HPLC (with derivatization)</td></tr>
+          <tr><td>Amino Acid Composition Analysis</td><td>Hydrolysis + HPLC / LC-MS</td></tr>
+          <tr><td>Charge Variants / Isoforms</td><td>Capillary Electrophoresis (CE) / IEF</td></tr>
+          <tr><td>Structural Characterization</td><td>NMR Spectroscopy</td></tr>
+          <tr><td>Secondary Structure</td><td>Circular Dichroism (CD Spectroscopy)</td></tr>
+          <tr><td>Peptide Mapping</td><td>Enzymatic Digestion + LC-MS/MS</td></tr>
+          <tr><td>Aggregation / Size Distribution</td><td>SEC (Size Exclusion Chromatography)</td></tr>
+          <tr><td>Functional Activity / Quantification</td><td>Enzymatic Assays / Plate Reader</td></tr>
+          <tr><td>Stability Studies</td><td>HPLC / LC-MS (time-based analysis)</td></tr>
+          <tr><td>Residual Solvents / Reagents</td><td>GC / LC-MS</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ 04 BIOSIMILAR ═══ -->
+  <div class="service-section" id="biosimilar">
+    <div class="service-header">
+      <div class="service-num-big">04</div>
       <div>
         <h2>Physico-Chemical Characterization for Biosimilars</h2>
         <p>We offer comprehensive <strong>physico-chemical characterization services for biosimilars</strong> using advanced, state-of-the-art analytical techniques. Our testing ensures detailed evaluation of structural integrity, purity, and critical quality attributes in line with <strong>ICH, FDA, and EMA guidelines</strong>. These services support biosimilar development, comparability, and regulatory submissions.</p>
       </div>
     </div>
     <div class="table-scroll">
-      <table class="styled-table">
+      <table>
         <thead><tr><th>Parameter</th><th>Attribute / Analytical Tests</th><th>Instruments / Technique</th></tr></thead>
         <tbody>
-          <tr><td rowspan="5" style="font-weight:600;">Primary Structure</td><td>Amino acid sequence</td><td>LC-MS/MS</td></tr>
+          <tr><td rowspan="6" style="font-weight:600; color:var(--spring-ink);">Primary Structure</td><td>Amino acid sequence</td><td>LC-MS/MS</td></tr>
           <tr><td>Peptide Mapping</td><td>HRMS</td></tr>
           <tr><td>Molecular weight / Intact Mass Analysis</td><td>LC-MS/MS</td></tr>
           <tr><td>C &amp; N-terminal sequencing</td><td>LC-MS/MS</td></tr>
           <tr><td>Di-Sulfide Bridge Analysis</td><td>LC-MS/MS</td></tr>
-          <tr><td rowspan="3" style="font-weight:600;">Higher-Order Structure</td><td>Secondary structure</td><td>Circular Dichroism (CD – Far UV)</td></tr>
+          <tr><td>Antibody-Drug Conjugate (ADC) Analysis</td><td>LC-MS/MS</td></tr>
+          <tr><td rowspan="3" style="font-weight:600; color:var(--spring-ink);">Higher-Order Structure</td><td>Secondary structure</td><td>Circular Dichroism (CD – Far UV)</td></tr>
           <tr><td>Tertiary structure</td><td>CD (Near UV), Fluorescence Spectroscopy</td></tr>
           <tr><td>Conformation</td><td>FT-IR Spectroscopy, NMR</td></tr>
-          <tr><td rowspan="4" style="font-weight:600;">Post-Translational Modifications</td><td>Glycosylation profiling</td><td>HILIC-UPLC, LC-MS</td></tr>
+          <tr><td rowspan="4" style="font-weight:600; color:var(--spring-ink);">Post-Translational Modifications</td><td>Glycosylation profiling</td><td>HILIC-UPLC, LC-MS</td></tr>
           <tr><td>Glycan structure</td><td>MALDI-TOF MS, LC-MS/MS</td></tr>
           <tr><td>Charge variants</td><td>Cation Exchange Chromatography (CEX-HPLC)</td></tr>
           <tr><td>Deamidation / Oxidation</td><td>Peptide mapping by LC-MS</td></tr>
-          <tr><td rowspan="3" style="font-weight:600;">Purity &amp; Impurities</td><td>Size variants / Aggregates</td><td>SEC-HPLC, DLS</td></tr>
+          <tr><td rowspan="3" style="font-weight:600; color:var(--spring-ink);">Purity &amp; Impurities</td><td>Size variants / Aggregates</td><td>SEC-HPLC, DLS</td></tr>
           <tr><td>Fragmentation</td><td>SDS-PAGE, CE-SDS</td></tr>
           <tr><td>Process-related impurities</td><td>ELISA, HPLC</td></tr>
-          <tr><td style="font-weight:600;">Isoform Characterization</td><td>Isoelectric point (pI)</td><td>IEF, icIEF</td></tr>
-          <tr><td rowspan="2" style="font-weight:600;">Stability &amp; Degradation</td><td>Thermal stability</td><td>Differential Scanning Calorimetry (DSC)</td></tr>
+          <tr><td style="font-weight:600; color:var(--spring-ink);">Isoform Characterization</td><td>Isoelectric point (pI)</td><td>Isoelectric Focusing (IEF), icIEF</td></tr>
+          <tr><td rowspan="2" style="font-weight:600; color:var(--spring-ink);">Stability &amp; Degradation</td><td>Thermal stability</td><td>Differential Scanning Calorimetry (DSC)</td></tr>
           <tr><td>Aggregation tendency</td><td>DLS, SEC-HPLC</td></tr>
-          <tr><td rowspan="3" style="font-weight:600;">General Properties</td><td>Protein concentration</td><td>UV-Vis Spectrophotometer</td></tr>
+          <tr><td rowspan="3" style="font-weight:600; color:var(--spring-ink);">General Properties</td><td>Protein concentration</td><td>UV-Vis Spectrophotometer</td></tr>
           <tr><td>Appearance / clarity</td><td>Visual inspection</td></tr>
           <tr><td>pH</td><td>pH meter</td></tr>
         </tbody>
@@ -194,18 +430,19 @@
     </div>
   </div>
 
-  <!-- 04 BIOPROCESS -->
-  <div class="service-section fade-up" id="bioprocess">
+  <!-- ═══ 05 BIOPROCESS ═══ -->
+  <div class="service-section" id="bioprocess">
     <div class="service-header">
-      <div class="service-num-big">04</div>
+      <div class="service-num-big">05</div>
       <div>
         <h2>Bioprocess Related Impurities</h2>
         <p>Bioprocess-related impurities are unintended substances introduced or generated during the production of biologics and biotechnology-derived products — including host cell proteins (HCPs), residual host cell DNA, cell culture media components, process additives, aggregates, fragments, and leachables from single-use systems. Our testing services provide comprehensive monitoring and characterization using advanced analytical platforms such as ELISA, qPCR, LC-MS/MS, SEC-HPLC, and high-resolution mass spectrometry.</p>
       </div>
     </div>
-    <h3 style="font-size:1rem; font-weight:600; margin-bottom:1rem;">Upstream Impurities</h3>
-    <div class="table-scroll" style="margin-bottom:2rem;">
-      <table class="styled-table">
+
+    <h3 class="sub-h3">Upstream Impurities</h3>
+    <div class="table-scroll">
+      <table>
         <thead><tr><th>Impurity</th><th>Method</th></tr></thead>
         <tbody>
           <tr><td>Benzonase</td><td>ELISA</td></tr>
@@ -217,71 +454,136 @@
           <tr><td>Protein A</td><td>ELISA</td></tr>
           <tr><td>Residual DNA</td><td>RT-PCR</td></tr>
           <tr><td>Residual Protein</td><td>Plate Reader</td></tr>
-          <tr><td>Residual Endotoxin / LPS Estimation</td><td>LAL Assay</td></tr>
+          <tr><td>Residual Endotoxin / Lipopolysaccharide (LPS) Estimation</td><td>LAL Assay</td></tr>
         </tbody>
       </table>
     </div>
-    <h3 style="font-size:1rem; font-weight:600; margin-bottom:1rem;">Process Enhancing Agents, Antibiotics &amp; Buffer Components</h3>
+
+    <h3 class="sub-h3">Antibiotics</h3>
     <div class="table-scroll">
-      <table class="styled-table">
-        <thead><tr><th>Category</th><th>Compound</th><th>Method</th></tr></thead>
+      <table>
+        <thead><tr><th>Compound</th><th>Method</th></tr></thead>
         <tbody>
-          <tr><td rowspan="10">Process Enhancing Agents</td><td>AEBSF, Cystamine, DTT, Guanidine, Leupeptin, Methionine Sulfoximine, Tropolone</td><td>LC-MS/MS</td></tr>
+          <tr><td>Carbenicillin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Chloramphenicol</td><td>LC-MS/MS</td></tr>
+          <tr><td>Colistin (Polymyxin E)</td><td>LC-MS/MS</td></tr>
+          <tr><td>Geneticin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Gentamicin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Kanamycin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Meropenem</td><td>LC-MS/MS</td></tr>
+          <tr><td>Methotrexate</td><td>LC-MS/MS</td></tr>
+          <tr><td>Penicillin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Puromycin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Streptomycin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Tetracycline</td><td>LC-MS/MS</td></tr>
+          <tr><td>Thiamphenicol</td><td>LC-MS/MS</td></tr>
+          <tr><td>Tobramycin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Vancomycin</td><td>LC-MS/MS</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-h3">Process Enhancing Agents &amp; Catalysts</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Compound</th><th>Method</th></tr></thead>
+        <tbody>
+          <tr><td>AEBSF (4-(2-aminoethyl) benzene Sulfonyl Fluoride Hydrochloride)</td><td>LC-MS/MS</td></tr>
+          <tr><td>Cystamine</td><td>LC-MS/MS</td></tr>
+          <tr><td>Dithiothreitol (DTT)</td><td>LC-MS/MS</td></tr>
+          <tr><td>Guanidine</td><td>LC-MS/MS</td></tr>
+          <tr><td>Leupeptin</td><td>LC-MS/MS</td></tr>
+          <tr><td>Methionine Sulfoximine</td><td>LC-MS/MS</td></tr>
+          <tr><td>Tropolone</td><td>LC-MS/MS</td></tr>
           <tr><td>Arabinose</td><td>LC/CAD</td></tr>
-          <tr><td>IPTG, Polyethylene Glycol</td><td>LC-MS/MS or LC/CAD</td></tr>
-          <tr><td>TEMPO, Tri-n-butyl Phosphate (TnBP)</td><td>GC/FID</td></tr>
-          <tr><td>EDC, EDTA, Phenol/m-Cresol</td><td>LC/UV</td></tr>
+          <tr><td>IPTG</td><td>LC-MS/MS</td></tr>
+          <tr><td>Polyethylene Glycol</td><td>LC-MS</td></tr>
+          <tr><td>TEMPO</td><td>GC/FID</td></tr>
+          <tr><td>Tri-n-butyl Phosphate (TnBP)</td><td>GC/FID</td></tr>
+          <tr><td>EDC (N-ethyl-N'-(3-dimethylaminopropyl) carbodiimide)</td><td>LC/UV</td></tr>
+          <tr><td>EDTA</td><td>LC/UV</td></tr>
+          <tr><td>Phenol / m-Cresol</td><td>LC/UV</td></tr>
           <tr><td>Urea</td><td>LC/CAD or UV/Vis</td></tr>
           <tr><td>TCEP</td><td>LC</td></tr>
-          <tr><td colspan="2">— — —</td></tr>
-          <tr><td>Buffer Components (Arginine, Cysteine, Acetate, Histidine, HEPES, Glucose, etc.)</td><td>LC-MS/MS, LC/UV, LC/CAD, LC/RI</td></tr>
-          <tr><td colspan="2">— — —</td></tr>
-          <tr><td>Antibiotics</td><td>Carbenicillin, Chloramphenicol, Colistin, Gentamicin, Kanamycin, Penicillin, Streptomycin, Vancomycin, and more</td><td>LC-MS/MS</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <h3 class="sub-h3">Buffer Components</h3>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Compound</th><th>Method</th></tr></thead>
+        <tbody>
+          <tr><td>Arginine</td><td>LC-MS/MS</td></tr>
+          <tr><td>Cysteine</td><td>LC-MS/MS</td></tr>
+          <tr><td>Cystine</td><td>LC-MS/MS</td></tr>
+          <tr><td>Tropolone</td><td>LC-MS/MS</td></tr>
+          <tr><td>Acetate</td><td>LC-MS/MS or LC/UV</td></tr>
+          <tr><td>Citrate</td><td>LC/UV</td></tr>
+          <tr><td>Histidine</td><td>LC/UV</td></tr>
+          <tr><td>Imidazole</td><td>LC/UV</td></tr>
+          <tr><td>Iodate</td><td>LC/UV</td></tr>
+          <tr><td>Periodate</td><td>LC/UV</td></tr>
+          <tr><td>Phenol Red</td><td>LC/UV</td></tr>
+          <tr><td>Triazole</td><td>LC/UV</td></tr>
+          <tr><td>HEPES</td><td>LC/UV</td></tr>
+          <tr><td>Ammonium</td><td>LC/CAD</td></tr>
+          <tr><td>Glucose</td><td>LC/CAD</td></tr>
+          <tr><td>Phosphate</td><td>LC/CAD</td></tr>
+          <tr><td>Sulfate</td><td>LC/CAD</td></tr>
+          <tr><td>TRIS</td><td>LC/CAD</td></tr>
+          <tr><td>Urea</td><td>LC/CAD</td></tr>
+          <tr><td>Citraconic Acid</td><td>LC/RI</td></tr>
+          <tr><td>Citric Acid</td><td>LC/RI</td></tr>
+          <tr><td>Glycine</td><td>LC/RI</td></tr>
+          <tr><td>Mannitol</td><td>LC/RI</td></tr>
+          <tr><td>Sorbitol</td><td>LC/RI</td></tr>
+          <tr><td>Sucrose</td><td>LC/RI</td></tr>
         </tbody>
       </table>
     </div>
   </div>
 
-  <!-- 05 E&L -->
-  <div class="service-section fade-up" id="el">
+  <!-- ═══ 06 E&L ═══ -->
+  <div class="service-section" id="el">
     <div class="service-header">
-      <div class="service-num-big">05</div>
+      <div class="service-num-big">06</div>
       <div>
         <h2>Extractables &amp; Leachables (E&amp;L)</h2>
         <p>During manufacturing, storage, and sterilization, products may contain or generate chemical compounds that migrate into the final product. Our laboratories utilize advanced LC-MS/MS, GC-MS, and ICP-MS platforms to detect, identify, and quantify potential leachables at trace levels. We deliver protocol-driven, regulatory-aligned E&amp;L studies tailored to pharmaceuticals, medical devices, food, and beverage products — supporting global submissions and patient safety.</p>
       </div>
     </div>
     <div class="table-scroll">
-      <table class="styled-table">
+      <table>
         <thead><tr><th>Service Area</th><th>Studies / Services</th><th>Techniques</th></tr></thead>
         <tbody>
           <tr>
-            <td style="font-weight:600;">Extractables Studies</td>
-            <td>Controlled extraction (USP &lt;1663&gt;), Exaggerated &amp; Simulated extractions, Worst-case solvent selection, Material screening &amp; comparative extraction, Container closure evaluation</td>
-            <td>GC-MS, Headspace GC-MS, LC-MS / LC-HRMS, UHPLC-MS/MS, ICP-MS, FTIR, UV-Vis, TOC</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Extractables Studies</td>
+            <td>Controlled extraction studies (USP &lt;1663&gt;), Exaggerated &amp; simulated extractions, Worst-case solvent selection, Material screening &amp; comparative extraction, Container closure evaluation</td>
+            <td>GC-MS (Volatile &amp; Semi-Volatile), Headspace GC-MS, LC-MS / LC-HRMS, UHPLC-MS/MS, ICP-MS, FTIR, UV-Vis, TOC</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">Leachable Studies</td>
-            <td>Method development &amp; validation (USP &lt;1664&gt;), AET-based sensitivity validation, Stability leachables, Container closure interaction, Migration studies, Dose-based leachables assessment</td>
-            <td>Targeted LC-MS/MS, HR LC-MS (QTOF/Orbitrap), GC-MS, Headspace GC-MS, ICP-MS, Ion Chromatography, HPLC-DAD/FLD</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Leachable Studies</td>
+            <td>Method development &amp; validation (USP &lt;1664&gt;), AET-based sensitivity validation, Stability leachables (accelerated &amp; long-term), Container closure interaction studies, Migration studies, Dose-based leachables assessment</td>
+            <td>Targeted LC-MS/MS, High-Resolution LC-MS (QTOF / Orbitrap), GC-MS, Headspace GC-MS, ICP-MS, Ion Chromatography (IC), HPLC-DAD / FLD</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">Material Characterization</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Material Characterization</td>
             <td>Polymer characterization, Additive &amp; antioxidant profiling, Plasticizer identification, Silicone oil analysis, Rubber &amp; elastomer evaluation</td>
             <td>Pyrolysis GC-MS, Thermal Desorption GC-MS, FTIR (ATR &amp; Transmission), DSC/TGA, LC-MS, GC-FID</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">Toxicological Assessment</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Toxicological Assessment</td>
             <td>AET calculation, SCT assessment, TTC evaluation, PDE calculation, Toxicological risk assessment reports</td>
             <td>Toxicological databases, Exposure modeling tools, Risk assessment frameworks</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">Elemental Impurities &amp; Trace Metals</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Elemental Impurities &amp; Trace Metals</td>
             <td>Extractable metals screening, Leachable metals monitoring, ICH Q3D compliance testing, Container closure elemental risk assessment</td>
             <td>ICP-MS, ICP-OES</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">Specialized Programs</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Specialized Programs</td>
             <td>Biologics &amp; protein formulation E&amp;L, Parenteral &amp; ophthalmic programs, Inhalation product E&amp;L, Combination product support, Post-approval change assessment</td>
             <td>LC-HRMS Non-Targeted Screening, Ultra-trace LC-MS/MS, GC-MS, Headspace GC-MS, ICP-MS</td>
           </tr>
@@ -290,38 +592,134 @@
     </div>
   </div>
 
-  <!-- 06 NITROSAMINES -->
-  <div class="service-section fade-up" id="nitrosamines">
+  <!-- ═══ 07 NITROSAMINES ═══ -->
+  <div class="service-section" id="nitrosamines">
     <div class="service-header">
-      <div class="service-num-big">06</div>
+      <div class="service-num-big">07</div>
       <div>
         <h2>Nitrosamines &amp; NDSRIs</h2>
-        <p>Nitrosamines and Nitrosamine Drug Substance Related Impurities (NDSRIs) are highly potent mutagenic impurities that may arise from complex interactions within the drug substance, manufacturing process, excipients, or packaging systems. Our testing services combine advanced LC-MS/MS, GC-MS/MS, and high-resolution mass spectrometry with structure-based risk assessment to identify both known nitrosamines and API-specific NDSRIs.</p>
+        <p>Nitrosamines and Nitrosamine Drug Substance Related Impurities (NDSRIs) are highly potent mutagenic impurities that may arise from complex interactions within the drug substance, manufacturing process, excipients, or packaging systems. Unlike routine impurity testing, nitrosamine assessment requires compound-specific risk evaluation, ultra-trace detection capability, and a science-driven control strategy aligned with evolving global regulations. Our testing services combine advanced LC-MS/MS, GC-MS/MS, and high-resolution mass spectrometry with structure-based risk assessment to identify both known nitrosamines and API-specific NDSRIs — from formation pathway assessment to regulatory submission documentation.</p>
       </div>
     </div>
     <div class="table-scroll">
-      <table class="styled-table">
+      <table>
         <thead><tr><th>Service Area</th><th>Services</th><th>Techniques</th></tr></thead>
         <tbody>
           <tr>
-            <td style="font-weight:600;">Nitrosamines (Volatile &amp; Semi-Volatile)</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Nitrosamines (Volatile &amp; Semi-Volatile)</td>
             <td>Targeted screening of regulated nitrosamines, Trace-level quantification per global guidance, Method development &amp; validation, Batch release &amp; stability testing, Risk-based confirmatory testing</td>
             <td>LC-MS/MS, GC-MS/MS, Headspace GC-MS, Isotope Dilution Techniques</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">NDSRIs</td>
+            <td style="font-weight:600; color:var(--spring-ink);">NDSRIs (Nitrosamine Drug Substance Related Impurities)</td>
             <td>API-specific NDSRI identification, Structure-based risk assessment, Impurity profiling &amp; characterization, Forced degradation studies, Control strategy development</td>
-            <td>High-Resolution LC-MS (QTOF/Orbitrap), LC-MS/MS (Ultra-trace), GC-MS/MS, HRMS Non-Targeted Screening</td>
+            <td>High-Resolution LC-MS (QTOF / Orbitrap), LC-MS/MS (Ultra-trace), GC-MS/MS, HRMS Non-Targeted Screening</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">Risk Assessment &amp; Regulatory Support</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Risk Assessment &amp; Regulatory Support</td>
             <td>Nitrosamine risk evaluation, AET-based method sensitivity justification, Acceptable intake (AI) calculation, Root cause investigation, Regulatory submission support</td>
             <td>LC-MS/MS Quantitation, HRMS Structure Elucidation, Exposure Modeling Tools</td>
           </tr>
           <tr>
-            <td style="font-weight:600;">Specialized Studies</td>
+            <td style="font-weight:600; color:var(--spring-ink);">Specialized Studies</td>
             <td>Nitrosamine formation pathway assessment, Process &amp; excipient evaluation, Packaging-related nitrosamine assessment, Cleaning validation support, Post-approval change assessment</td>
             <td>LC-MS/MS, GC-MS/MS, Headspace GC-MS, HRMS</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══ 08 FOOD TESTING ═══ -->
+  <div class="service-section" id="food">
+    <div class="service-header">
+      <div class="service-num-big">08</div>
+      <div>
+        <h2>Food Testing Services</h2>
+        <p>We provide comprehensive food testing services covering microbiological, chemical, mycotoxin, pesticide residue, allergen, authenticity, GMO, and packaging assessments. Our advanced analytical platforms ensure product safety, regulatory compliance, and consumer confidence across all food categories.</p>
+      </div>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead><tr><th>Category</th><th>Test Parameters</th><th>Techniques</th><th>Key Instruments</th></tr></thead>
+        <tbody>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Microbiological Testing</td>
+            <td>TPC, Yeast &amp; Mold, Pathogens (Salmonella, E. coli, Listeria)</td>
+            <td>Culture methods, PCR</td>
+            <td>Incubator, Autoclave, Biosafety Cabinet, Colony Counter, PCR System</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Chemical Contaminants</td>
+            <td>Heavy Metals (Pb, Cd, Hg, As)</td>
+            <td>ICP-MS / AAS</td>
+            <td>ICP-MS, Atomic Absorption Spectrophotometer</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Mycotoxins</td>
+            <td>Aflatoxins, Ochratoxin</td>
+            <td>LC-MS/MS, HPLC</td>
+            <td>LC-MS/MS, HPLC System</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Pesticide Residues</td>
+            <td>Multi-residue pesticides</td>
+            <td>GC-MS/MS, LC-MS/MS</td>
+            <td>GC-MS/MS, LC-MS/MS</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Veterinary Drugs / Antibiotics</td>
+            <td>Antibiotic residues, hormones</td>
+            <td>LC-MS/MS</td>
+            <td>LC-MS/MS</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Vitamins &amp; Minerals</td>
+            <td>Vitamins, trace elements</td>
+            <td>HPLC, ICP-MS</td>
+            <td>HPLC System, ICP-MS</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Food Additives</td>
+            <td>Preservatives, colors, sweeteners</td>
+            <td>HPLC, UV-Vis</td>
+            <td>UV-Visible Spectrophotometer, HPLC System</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Allergen Testing</td>
+            <td>Gluten, Peanut, Soy, Milk</td>
+            <td>ELISA, PCR</td>
+            <td>ELISA Reader, PCR System</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Food Authenticity</td>
+            <td>DNA species ID, adulteration</td>
+            <td>PCR, DNA sequencing</td>
+            <td>Real-Time PCR System, DNA Sequencer</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">GMO Testing</td>
+            <td>Genetically modified organisms</td>
+            <td>PCR</td>
+            <td>Real-Time PCR System</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Physical Testing</td>
+            <td>Moisture, texture, foreign matter</td>
+            <td>Gravimetric, Texture analysis</td>
+            <td>Moisture Analyzer, Texture Analyzer</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Shelf-life Studies</td>
+            <td>Stability, microbial growth</td>
+            <td>Incubation, Analytical</td>
+            <td>Stability Chamber, Incubator</td>
+          </tr>
+          <tr>
+            <td style="font-weight:600; color:var(--spring-ink);">Packaging Testing</td>
+            <td>Migration, integrity</td>
+            <td>GC-MS, Mechanical</td>
+            <td>GC-MS, Burst Tester</td>
           </tr>
         </tbody>
       </table>
@@ -331,19 +729,22 @@
 </section>
 
 <!-- CTA -->
-<div style="background:var(--light-bg); padding:60px 5%; text-align:center;">
+<div class="cta-strip">
   <p class="section-label" style="justify-content:center;">Get Started</p>
-  <h2 class="section-title" style="margin-bottom:0.8rem;">Need a Service or Custom Study?</h2>
+  <h2 class="section-title">Need a Service or Custom Study?</h2>
   <p class="section-sub" style="margin:0 auto 2rem;">Contact our team to discuss your specific analytical requirements and get a tailored proposal.</p>
   <a href="contact.html" class="btn btn-primary">Request a Quote →</a>
 </div>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="footer-logo">AMICOM<span>.</span></div>
+      <div class="footer-logo">AMICOM Analytics<span>.</span></div>
+      <div class="footer-caption">Science at the core, quality at every step</div>
       <p>AMICOM Analytics LLP is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for biologics and NBCDs.</p>
-      <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>    </div>
+      <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>
+    </div>
     <div class="footer-col">
       <h4>Quick Links</h4>
       <ul>
@@ -357,19 +758,22 @@
     <div class="footer-col">
       <h4>Services</h4>
       <ul>
-        <li><a href="#analytical" onclick="showService('analytical')">Analytical &amp; Testing</a></li>
-        <li><a href="#nbcd" onclick="showService('nbcd')">NBCD / IVBE</a></li>
-        <li><a href="#biosimilar" onclick="showService('biosimilar')">Biosimilar</a></li>
-        <li><a href="#bioprocess" onclick="showService('bioprocess')">Bioprocess Impurities</a></li>
-        <li><a href="#el" onclick="showService('el')">E&amp;L</a></li>
-        <li><a href="#nitrosamines" onclick="showService('nitrosamines')">Nitrosamines</a></li>
+        <li><a href="#" onclick="showService('analytical');return false;">Analytical &amp; Testing</a></li>
+        <li><a href="#" onclick="showService('nbcd');return false;">NBCD / IVBE</a></li>
+        <li><a href="#" onclick="showService('peptide');return false;">Peptide Characterization</a></li>
+        <li><a href="#" onclick="showService('biosimilar');return false;">Biosimilar Characterization</a></li>
+        <li><a href="#" onclick="showService('bioprocess');return false;">Bioprocess Impurities</a></li>
+        <li><a href="#" onclick="showService('el');return false;">Extractables &amp; Leachables</a></li>
+        <li><a href="#" onclick="showService('nitrosamines');return false;">Nitrosamines &amp; NDSRIs</a></li>
+        <li><a href="#" onclick="showService('food');return false;">Food Testing</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:info@amicomanalytics.com">info@amicomanalytics.com</a></li>
-        <li><a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a></li>
+        <li><a href="mailto:info@amicomlabs.com">info@amicomlabs.com</a></li>
+        <li><a href="tel:04045608340">040-45608340</a></li>
+        <li style="margin-top:0.8rem; color:rgba(255,255,255,0.28); font-size:0.78rem;">AMICOM Analytics LLP<br/>IDA Cherlapally, Hyderabad<br/>Telangana 500 051, India</li>
       </ul>
     </div>
   </div>
@@ -379,19 +783,29 @@
   </div>
 </footer>
 
-<script src="main.js"></script>
 <script>
-function showService(id) {
-  document.querySelectorAll('.service-section').forEach(s => s.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-  document.getElementById(id)?.classList.add('active');
-  const idx = ['analytical','nbcd','biosimilar','bioprocess','el','nitrosamines'].indexOf(id);
-  document.querySelectorAll('.tab-btn')[idx]?.classList.add('active');
-  window.scrollTo({ top: document.querySelector('.svc-nav').offsetTop - 10, behavior: 'smooth' });
-}
-// Handle hash links
-const h = window.location.hash.replace('#','');
-if (h) showService(h);
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+
+  const ORDER = ['analytical','nbcd','peptide','biosimilar','bioprocess','el','nitrosamines','food'];
+
+  function showService(id) {
+    document.querySelectorAll('.service-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    const el = document.getElementById(id);
+    if (el) el.classList.add('active');
+    const idx = ORDER.indexOf(id);
+    const btns = document.querySelectorAll('.tab-btn');
+    if (btns[idx]) btns[idx].classList.add('active');
+    document.querySelector('.svc-nav').scrollIntoView({ behavior:'smooth', block:'nearest' });
+  }
+
+  const h = window.location.hash.replace('#','');
+  if (h && ORDER.includes(h)) showService(h);
+
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(22,163,74,0.12)' : 'none';
+  });
 </script>
 </body>
 </html>

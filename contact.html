@@ -4,62 +4,242 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Contact Us – AMICOM Analytics</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    .contact-layout { display: grid; grid-template-columns: 1fr 1.5fr; gap: 4rem; align-items: flex-start; }
-    @media(max-width:900px) { .contact-layout { grid-template-columns: 1fr; } }
+    :root {
+      --spring:       #4ade80;
+      --spring-dim:   #16a34a;
+      --spring-deep:  #15803d;
+      --spring-ink:   #052e16;
+      --spring-pale:  #f0fff6;
+      --spring-pale2: #dcfce7;
+      --dark:   #052e16;
+      --gray:   #2d4a38;
+      --muted:  #4b7a5e;
+      --border: #bbf7d0;
+      --white:  #ffffff;
+      --surface:#f0fff6;
+      --shadow:    0 4px 20px rgba(22,163,74,0.10);
+      --shadow-lg: 0 12px 44px rgba(22,163,74,0.18);
+    }
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans', sans-serif; background:var(--white); color:var(--dark); overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
+    ul { list-style:none; }
 
+    /* ── NAV ── */
+    #main-nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 5%; background:rgba(255,255,255,0.97);
+      backdrop-filter:blur(14px); border-bottom:1px solid var(--border);
+      height:72px; transition:box-shadow 0.3s;
+    }
+    .nav-logo { display:flex; align-items:center; gap:0.8rem; }
+    .nav-logo img { height:52px; width:auto; }
+    .nav-logo-wrap { display:flex; flex-direction:column; line-height:1.15; }
+    .nav-logo-text { font-family:'Cormorant Garamond', serif; font-size:1.28rem; font-weight:700; color:var(--spring-ink); white-space:nowrap; }
+    .nav-logo-text span { color:var(--spring-dim); }
+    .nav-caption { font-size:0.6rem; color:var(--spring-deep); letter-spacing:0.1em; text-transform:uppercase; font-style:italic; }
+    .nav-links { display:flex; align-items:center; gap:2rem; }
+    .nav-links a { font-size:0.85rem; font-weight:500; color:var(--gray); transition:color 0.2s; }
+    .nav-links a:not(.nav-cta):hover { color:var(--spring-deep); }
+    .nav-cta { background:var(--spring-dim); color:#fff !important; padding:0.5rem 1.2rem; border-radius:7px; font-weight:600 !important; }
+    .nav-cta:hover { background:var(--spring-deep) !important; transform:translateY(-1px); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height:42vh;
+      display:flex; align-items:center;
+      padding:120px 5% 80px;
+      background:linear-gradient(145deg, #f0fff6 0%, #dcfce7 50%, #f0fff6 100%);
+      position:relative; overflow:hidden;
+    }
+    .page-hero-grid {
+      position:absolute; inset:0; opacity:0.45;
+      background-image:linear-gradient(rgba(74,222,128,0.13) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(74,222,128,0.13) 1px, transparent 1px);
+      background-size:60px 60px;
+    }
+    .page-hero-glow {
+      position:absolute; right:-8%; top:0; width:50vw; height:100%;
+      background:radial-gradient(ellipse, rgba(74,222,128,0.2) 0%, transparent 68%);
+      pointer-events:none;
+    }
+    .page-hero-content { position:relative; z-index:2; max-width:600px; }
+    .page-hero-content .label {
+      font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+      color:var(--spring-dim); font-weight:600; margin-bottom:0.9rem;
+      display:flex; align-items:center; gap:0.5rem;
+    }
+    .page-hero-content .label::before { content:''; display:inline-block; width:20px; height:2px; background:var(--spring-dim); border-radius:2px; }
+    .page-hero-content h1 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(2.2rem,4.5vw,3.5rem); font-weight:600;
+      color:var(--spring-ink); line-height:1.1; margin-bottom:1rem;
+    }
+    .page-hero-content h1 em { color:var(--spring-dim); font-style:normal; }
+    .page-hero-content p { font-size:0.95rem; color:var(--muted); line-height:1.85; font-weight:300; max-width:520px; }
+
+    /* ── LAYOUT ── */
+    .section { padding:70px 5% 90px; }
+    .section-label {
+      font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+      color:var(--spring-dim); font-weight:600; margin-bottom:0.7rem;
+      display:flex; align-items:center; gap:0.5rem;
+    }
+    .section-label::before { content:''; display:inline-block; width:20px; height:2px; background:var(--spring-dim); border-radius:2px; }
+    .contact-layout { display:grid; grid-template-columns:1fr 1.6fr; gap:3.5rem; align-items:flex-start; }
+    @media(max-width:900px){ .contact-layout{ grid-template-columns:1fr; } }
+
+    /* ── INFO CARD ── */
     .contact-info-card {
-      background: var(--green-dark); border-radius: 14px; padding: 2.5rem;
-      color: white; position: sticky; top: 90px;
+      background:linear-gradient(145deg, var(--spring-ink) 0%, var(--spring-deep) 100%);
+      border-radius:16px; padding:2.5rem;
+      color:white; position:sticky; top:90px;
+      box-shadow:var(--shadow-lg);
     }
     .contact-info-card h3 {
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 1.5rem; font-weight: 600; margin-bottom: 0.4rem;
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.5rem; font-weight:600; margin-bottom:0.4rem; color:#fff;
     }
-    .contact-info-card > p { font-size: 0.85rem; color: rgba(255,255,255,0.6); margin-bottom: 2rem; line-height: 1.65; }
+    .contact-info-card > p { font-size:0.84rem; color:rgba(255,255,255,0.6); margin-bottom:2rem; line-height:1.7; }
 
-    .info-item { display: flex; gap: 1rem; margin-bottom: 1.5rem; }
+    .info-item { display:flex; gap:1rem; margin-bottom:1.6rem; }
     .info-icon {
-      width: 40px; height: 40px; background: rgba(255,255,255,0.1);
-      border-radius: 8px; display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
+      width:42px; height:42px; background:rgba(74,222,128,0.15);
+      border:1px solid rgba(74,222,128,0.3);
+      border-radius:10px; display:flex; align-items:center; justify-content:center;
+      flex-shrink:0;
     }
-    .info-icon svg { width: 18px; height: 18px; stroke: var(--accent-light); fill: none; stroke-width: 1.8; }
-    .info-label { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--accent-light); margin-bottom: 0.3rem; }
-    .info-value { font-size: 0.88rem; color: rgba(255,255,255,0.85); line-height: 1.55; }
-    .info-value a { color: rgba(255,255,255,0.85); text-decoration: none; }
-    .info-value a:hover { color: white; text-decoration: underline; }
+    .info-icon svg { width:18px; height:18px; stroke:var(--spring); fill:none; stroke-width:1.8; }
+    .info-label { font-size:0.68rem; text-transform:uppercase; letter-spacing:0.12em; color:var(--spring); margin-bottom:0.3rem; font-weight:600; }
+    .info-value { font-size:0.87rem; color:rgba(255,255,255,0.82); line-height:1.6; }
+    .info-value a { color:rgba(255,255,255,0.82); }
+    .info-value a:hover { color:var(--spring); }
 
-    .divider-line { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 1.5rem 0; }
+    .divider-line { border:none; border-top:1px solid rgba(74,222,128,0.15); margin:1.6rem 0; }
 
+    .services-tags { display:flex; flex-wrap:wrap; gap:0.5rem; margin-top:0.8rem; }
+    .svc-tag {
+      font-size:0.7rem; padding:0.3rem 0.7rem; border-radius:100px;
+      background:rgba(74,222,128,0.12); border:1px solid rgba(74,222,128,0.22);
+      color:rgba(255,255,255,0.65); letter-spacing:0.03em;
+    }
+
+    /* ── FORM CARD ── */
     .form-card {
-      background: white; border: 1px solid var(--border); border-radius: 14px;
-      padding: 3rem; box-shadow: 0 8px 40px rgba(0,0,0,0.05);
+      background:white; border:1px solid var(--border);
+      border-radius:16px; padding:3rem;
+      box-shadow:var(--shadow);
     }
+    @media(max-width:560px){ .form-card{ padding:1.8rem; } }
+
+    .form-card h2 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:1.7rem; font-weight:600; color:var(--spring-ink);
+      margin-bottom:0.3rem;
+    }
+    .form-card > p { font-size:0.84rem; color:var(--muted); margin-bottom:0.5rem; }
+
     .form-section-title {
-      font-size: 0.72rem; letter-spacing: 0.14em; text-transform: uppercase;
-      color: var(--green); font-weight: 600; margin: 1.6rem 0 1rem;
-      display: flex; align-items: center; gap: 0.6rem;
+      font-size:0.7rem; letter-spacing:0.14em; text-transform:uppercase;
+      color:var(--spring-dim); font-weight:600; margin:1.8rem 0 1rem;
+      display:flex; align-items:center; gap:0.6rem;
     }
-    .form-section-title::after { content: ''; flex: 1; height: 1px; background: var(--border); }
-    .grid-2-form { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
-    @media(max-width:560px) { .grid-2-form { grid-template-columns: 1fr; } .form-card { padding: 1.8rem; } }
+    .form-section-title::after { content:''; flex:1; height:1px; background:var(--border); }
+
+    .grid-2-form { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    @media(max-width:560px){ .grid-2-form{ grid-template-columns:1fr; } }
+
+    .form-group { display:flex; flex-direction:column; gap:0.4rem; }
+    .form-label { font-size:0.78rem; font-weight:500; color:var(--spring-ink); }
+
+    .form-input, .form-select, .form-textarea {
+      width:100%; padding:0.7rem 0.9rem;
+      border:1.5px solid var(--border); border-radius:8px;
+      font-family:'DM Sans', sans-serif; font-size:0.875rem;
+      color:var(--dark); background:#fff;
+      transition:border-color 0.2s, box-shadow 0.2s;
+      outline:none;
+    }
+    .form-input::placeholder, .form-textarea::placeholder { color:var(--muted); }
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color:var(--spring-dim);
+      box-shadow:0 0 0 3px rgba(22,163,74,0.10);
+    }
+    .form-select { cursor:pointer; appearance:none; background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%234b7a5e' stroke-width='2'%3E%3Cpolyline points='6 9 12 15 18 9'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 0.9rem center; padding-right:2.2rem; }
+    .form-textarea { resize:vertical; min-height:130px; line-height:1.6; }
+
+    .form-checkbox {
+      display:flex; align-items:flex-start; gap:0.7rem;
+      font-size:0.82rem; color:var(--muted); cursor:pointer; line-height:1.5;
+    }
+    .form-checkbox input[type="checkbox"] {
+      width:16px; height:16px; flex-shrink:0; margin-top:2px;
+      accent-color:var(--spring-dim); cursor:pointer;
+    }
+
+    .btn {
+      display:inline-flex; align-items:center; gap:0.4rem;
+      padding:0.75rem 1.6rem; border-radius:7px;
+      font-family:'DM Sans', sans-serif;
+      font-size:0.85rem; font-weight:600; letter-spacing:0.03em;
+      transition:all 0.22s; cursor:pointer; border:none;
+    }
+    .btn-primary { background:var(--spring-dim); color:#fff; }
+    .btn-primary:hover { background:var(--spring-deep); transform:translateY(-2px); box-shadow:0 8px 24px rgba(22,163,74,0.28); }
+    .btn-primary:disabled { opacity:0.65; cursor:not-allowed; transform:none; }
+    .btn-outline { background:transparent; color:var(--spring-deep); border:1.5px solid var(--spring-dim); }
+    .btn-outline:hover { background:var(--spring-pale); }
+
+    .error-box {
+      display:none; background:#fff5f5; border:1px solid #fca5a5;
+      color:#b91c1c; padding:0.75rem 1rem; border-radius:8px;
+      font-size:0.84rem; margin-bottom:1rem;
+    }
 
     .submit-success {
-      display: none; text-align: center; padding: 3rem 2rem;
+      display:none; text-align:center; padding:3rem 2rem;
     }
-    .submit-success .check { font-size: 3rem; margin-bottom: 1rem; }
+    .success-icon {
+      width:64px; height:64px; background:var(--spring-pale);
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      margin:0 auto 1.2rem;
+    }
+    .success-icon svg { width:30px; height:30px; stroke:var(--spring-dim); fill:none; stroke-width:2.5; }
+    .submit-success h3 { font-family:'Cormorant Garamond', serif; font-size:1.6rem; color:var(--spring-ink); margin-bottom:0.6rem; }
+    .submit-success p { font-size:0.88rem; color:var(--muted); line-height:1.7; max-width:380px; margin:0 auto; }
+
+    /* ── FOOTER ── */
+    footer { background:var(--spring-ink); color:#fff; padding:60px 5% 28px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; padding-bottom:3rem; border-bottom:1px solid rgba(74,222,128,0.12); }
+    @media(max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:500px){ .footer-grid{grid-template-columns:1fr;} }
+    .footer-logo { font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-weight:700; color:#fff; margin-bottom:0.4rem; }
+    .footer-logo span { color:var(--spring); }
+    .footer-caption { font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--spring); font-style:italic; margin-bottom:1rem; }
+    .footer-brand p { font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; }
+    .footer-col h4 { font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--spring); margin-bottom:1.2rem; }
+    .footer-col ul { display:flex; flex-direction:column; gap:0.7rem; }
+    .footer-col ul a { font-size:0.82rem; color:rgba(255,255,255,0.5); transition:color 0.2s; }
+    .footer-col ul a:hover { color:var(--spring); }
+    .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; padding-top:1.5rem; font-size:0.74rem; color:rgba(255,255,255,0.3); }
+
+    .fade-up { opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="main-nav">
   <a href="index.html" class="nav-logo">
-<img src="amicom-logo.jpeg" alt="AMICOM Logo" style="height:44px; width:auto;"/>
-    <div>
-      <span class="nav-logo-text">AMICOM<span>.</span></span>
-      <span class="nav-logo-sub">Analytics</span>
+    <img src="amicom-logo.png" alt="AMICOM Logo"/>
+    <div class="nav-logo-wrap">
+      <span class="nav-logo-text">AMICOM Analytics<span>.</span></span>
+      <span class="nav-caption">Science at the core, quality at every step</span>
     </div>
   </a>
   <ul class="nav-links">
@@ -70,18 +250,23 @@
     <li><a href="contact.html" class="nav-cta">Contact Us</a></li>
   </ul>
 </nav>
+
+<!-- HERO -->
 <div class="page-hero">
-  <div class="page-hero-content">
-    <p class="section-label light" style="margin-bottom:1rem;">Get In Touch</p>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-content fade-up">
+    <p class="label">Get In Touch</p>
     <h1>We'd Love to<br/><em>Hear From You</em></h1>
-    <p>For analytical services, collaborations, career opportunities, or general inquiries — please reach out to us using the details below or submit your query through the contact form.</p>
+    <p>For analytical services, collaborations, career opportunities, or general inquiries — please reach out using the details below or submit your query through the contact form.</p>
   </div>
 </div>
 
+<!-- CONTACT SECTION -->
 <section class="section fade-up">
   <div class="contact-layout">
 
-    <!-- LEFT: CONTACT INFO -->
+    <!-- INFO CARD -->
     <div class="contact-info-card">
       <h3>AMICOM Analytics LLP</h3>
       <p>Your trusted partner in analytical and biopharma characterization services.</p>
@@ -106,7 +291,7 @@
         </div>
         <div>
           <div class="info-label">Phone</div>
-          <div class="info-value"><a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a></div>
+          <div class="info-value"><a href="tel:04045608340">040-45608340</a></div>
         </div>
       </div>
 
@@ -117,25 +302,35 @@
         <div>
           <div class="info-label">Email</div>
           <div class="info-value">
-            <a href="mailto:info@amicomanalytics.com">info@amicomanalytics.com</a>
+            <a href="mailto:info@amicomlabs.com">info@amicomlabs.com</a>
           </div>
         </div>
       </div>
 
       <hr class="divider-line"/>
 
-      <div style="font-size:0.78rem; color:rgba(255,255,255,0.45); line-height:1.7;">
-        <strong style="color:rgba(255,255,255,0.7); font-size:0.8rem;">Services we support:</strong><br/>
-        Analytical &amp; Testing · NBCD / IVBE · Biosimilar Characterization · Bioprocess Impurities · Extractables &amp; Leachables · Nitrosamines &amp; NDSRIs
+      <div>
+        <div class="info-label" style="margin-bottom:0.6rem;">Services we support</div>
+        <div class="services-tags">
+          <span class="svc-tag">Analytical &amp; Testing</span>
+          <span class="svc-tag">NBCD / IVBE</span>
+          <span class="svc-tag">Peptide Characterization</span>
+          <span class="svc-tag">Biosimilar</span>
+          <span class="svc-tag">Bioprocess Impurities</span>
+          <span class="svc-tag">E&amp;L</span>
+          <span class="svc-tag">Nitrosamines &amp; NDSRIs</span>
+          <span class="svc-tag">Food Testing</span>
+        </div>
       </div>
     </div>
 
-    <!-- RIGHT: FORM -->
+    <!-- FORM CARD -->
     <div class="form-card" id="contact-form-wrapper">
-      <h2 style="font-family:'Cormorant Garamond',serif; font-size:1.6rem; margin-bottom:0.2rem;">Send Us a Message</h2>
-      <p style="font-size:0.85rem; color:var(--gray-light); margin-bottom:0.5rem;">Fill in the form below and our team will get back to you within 1–2 business days.</p>
+      <h2>Send Us a Message</h2>
+      <p>Fill in the form below and our team will get back to you within 1–2 business days.</p>
 
       <form id="contact-form" onsubmit="handleContactSubmit(event)">
+
         <div class="form-section-title">Personal Details</div>
         <div class="grid-2-form">
           <div class="form-group">
@@ -153,56 +348,64 @@
         </div>
 
         <div class="form-section-title">Inquiry Details</div>
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom:1rem;">
           <label class="form-label">Subject *</label>
           <select class="form-select" required>
             <option value="" disabled selected>Select a subject</option>
             <option>Analytical Services</option>
             <option>Biosimilar / Biologics Characterization</option>
             <option>NBCD Analysis / IVBE Studies</option>
+            <option>Peptide Characterization</option>
             <option>Extractables &amp; Leachables</option>
             <option>Nitrosamines / NDSRIs</option>
             <option>Bioprocess Related Impurities</option>
+            <option>Food Testing Services</option>
             <option>Career Opportunities</option>
             <option>Partnership / Collaboration</option>
             <option>General Inquiry</option>
           </select>
         </div>
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom:1rem;">
           <label class="form-label">Message *</label>
-          <textarea class="form-textarea" rows="5" placeholder="Tell us about your project, sample type, regulatory context, or any specific questions..." required></textarea>
+          <textarea class="form-textarea" placeholder="Tell us about your project, sample type, regulatory context, or any specific questions…" required></textarea>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-bottom:1.2rem;">
           <label class="form-checkbox">
             <input type="checkbox" required/>
             I agree to the processing of my personal data for communication purposes.
           </label>
         </div>
 
-        <div id="contact-error" style="display:none; background:#fff0f0; border:1px solid #f5c0c0; color:#c0392b; padding:0.75rem 1rem; border-radius:6px; font-size:0.84rem; margin-bottom:0.8rem;"></div>
-        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:1rem; margin-top:0.3rem;">
+        <div class="error-box" id="contact-error"></div>
+        <button type="submit" class="btn btn-primary" style="width:100%; justify-content:center; padding:1rem;">
           Submit Inquiry →
         </button>
       </form>
 
+      <!-- SUCCESS STATE -->
       <div class="submit-success" id="contact-success">
-        <div class="check">✅</div>
-        <h3 style="font-family:'Cormorant Garamond',serif; font-size:1.4rem;">Message Received!</h3>
-        <p style="color:var(--gray-light);">Thank you for reaching out to AMICOM Analytics. Our team will review your inquiry and get back to you within 1–2 business days.</p>
-        <a href="index.html" class="btn btn-outline" style="margin-top:1.5rem; display:inline-flex;">Back to Home</a>
+        <div class="success-icon">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+        </div>
+        <h3>Message Received!</h3>
+        <p>Thank you for reaching out to AMICOM Analytics. Our team will review your inquiry and get back to you within 1–2 business days.</p>
+        <a href="index.html" class="btn btn-outline" style="margin-top:1.8rem; display:inline-flex;">← Back to Home</a>
       </div>
     </div>
+
   </div>
 </section>
 
+<!-- FOOTER -->
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="footer-logo">AMICOM<span>.</span></div>
+      <div class="footer-logo">AMICOM Analytics<span>.</span></div>
+      <div class="footer-caption">Science at the core, quality at every step</div>
       <p>AMICOM Analytics LLP is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for biologics and NBCDs.</p>
       <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>
-      </div>
+    </div>
     <div class="footer-col">
       <h4>Quick Links</h4>
       <ul>
@@ -218,18 +421,20 @@
       <ul>
         <li><a href="services.html#analytical">Analytical &amp; Testing</a></li>
         <li><a href="services.html#nbcd">NBCD / IVBE</a></li>
+        <li><a href="services.html#peptide">Peptide Characterization</a></li>
         <li><a href="services.html#biosimilar">Biosimilar</a></li>
         <li><a href="services.html#bioprocess">Bioprocess Impurities</a></li>
         <li><a href="services.html#el">E&amp;L</a></li>
         <li><a href="services.html#nitrosamines">Nitrosamines</a></li>
+        <li><a href="services.html#food">Food Testing</a></li>
       </ul>
     </div>
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:info@amicomanalytics.com">info@amicomanalytics.com</a></li>
-        <li><a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a></li>
-        <li style="color:rgba(255,255,255,0.3); font-size:0.78rem; margin-top:0.5rem;">IDA Cherlapally, Hyderabad<br/>Telangana 500 051, India</li>
+        <li><a href="mailto:info@amicomlabs.com">info@amicomlabs.com</a></li>
+        <li><a href="tel:04045608340">040-45608340</a></li>
+        <li style="margin-top:0.8rem; color:rgba(255,255,255,0.28); font-size:0.78rem;">AMICOM Analytics LLP<br/>IDA Cherlapally, Hyderabad<br/>Telangana 500 051, India</li>
       </ul>
     </div>
   </div>
@@ -239,60 +444,59 @@
   </div>
 </footer>
 
-<script src="main.js"></script>
 <script>
-const BACKEND_URL = "https://amicom-backend-g2h2.vercel.app"; // 🔧 Change to your deployed backend URL
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
 
-async function handleContactSubmit(e) {
-  e.preventDefault();
-  const form = document.getElementById('contact-form');
-  const btn  = form.querySelector('button[type="submit"]');
-  const errorBox = document.getElementById('contact-error');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-  const name    = form.querySelector('input[type="text"]').value.trim();
-  const phone1  = form.querySelector('input[type="tel"]').value.trim();
-  const email1  = form.querySelector('input[type="email"]').value.trim();
-  const subject = form.querySelector('select').value;
-  const message = form.querySelector('textarea').value.trim();
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(22,163,74,0.12)' : 'none';
+  });
 
-  btn.disabled = true;
-  btn.textContent = 'Sending…';
-  errorBox.style.display = 'none';
+  const BACKEND_URL = "https://amicom-backend-g2h2.vercel.app";
 
-  try {
-const res = await fetch(`${BACKEND_URL}/send-mail`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ name, email1, phone1, subject, message, formType: 'contact' })
-});
+  async function handleContactSubmit(e) {
+    e.preventDefault();
+    const form     = document.getElementById('contact-form');
+    const btn      = form.querySelector('button[type="submit"]');
+    const errorBox = document.getElementById('contact-error');
 
-// First check if request itself failed
-if (!res.ok) {
-  const errorText = await res.text();  // read raw response
-  throw new Error("Server error: " + errorText);
-}
+    const name    = form.querySelector('input[type="text"]').value.trim();
+    const phone1  = form.querySelector('input[type="tel"]').value.trim();
+    const email1  = form.querySelector('input[type="email"]').value.trim();
+    const subject = form.querySelector('select').value;
+    const message = form.querySelector('textarea').value.trim();
 
-// Now safely parse JSON
-let data;
-try {
-  data = await res.json();
-} catch (err) {
-  throw new Error("Invalid JSON response from server.");
-}
+    btn.disabled = true;
+    btn.textContent = 'Sending…';
+    errorBox.style.display = 'none';
 
-if (data.success) {
-  form.style.display = 'none';
-  document.getElementById('contact-success').style.display = 'block';
-} else {
-  throw new Error(data.error || 'Something went wrong.');
-}
-  } catch (err) {
-    errorBox.textContent = '⚠ ' + (err.message || 'Could not send. Please try again or email us directly.');
-    errorBox.style.display = 'block';
-    btn.disabled = false;
-    btn.textContent = 'Submit Inquiry →';
+    try {
+      const res = await fetch(`${BACKEND_URL}/send-mail`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ name, email1, phone1, subject, message, formType: 'contact' })
+      });
+      if (!res.ok) { const t = await res.text(); throw new Error("Server error: " + t); }
+      let data;
+      try { data = await res.json(); } catch { throw new Error("Invalid response from server."); }
+      if (data.success) {
+        form.style.display = 'none';
+        document.getElementById('contact-success').style.display = 'block';
+      } else {
+        throw new Error(data.error || 'Something went wrong.');
+      }
+    } catch (err) {
+      errorBox.textContent = '⚠ ' + (err.message || 'Could not send. Please try again or email us directly.');
+      errorBox.style.display = 'block';
+      btn.disabled = false;
+      btn.textContent = 'Submit Inquiry →';
+    }
   }
-}
 </script>
 </body>
 </html>

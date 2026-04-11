@@ -4,83 +4,191 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>About Us – AMICOM Analytics</title>
-  <link rel="stylesheet" href="style.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
-    .team-card-full {
-      background: white; border: 1px solid var(--border); border-radius: 12px;
-      padding: 2.5rem; display: flex; gap: 2rem; align-items: flex-start;
-      transition: all 0.25s;
+    :root {
+      --spring:       #4ade80;
+      --spring-dim:   #16a34a;
+      --spring-deep:  #15803d;
+      --spring-ink:   #052e16;
+      --spring-pale:  #f0fff6;
+      --spring-pale2: #dcfce7;
+      --dark:   #052e16;
+      --gray:   #2d4a38;
+      --muted:  #4b7a5e;
+      --border: #bbf7d0;
+      --white:  #ffffff;
+      --surface:#f0fff6;
+      --shadow:    0 4px 20px rgba(22,163,74,0.10);
+      --shadow-lg: 0 12px 44px rgba(22,163,74,0.18);
     }
-    .team-card-full:hover { box-shadow: 0 16px 48px rgba(0,0,0,0.08); }
-    .team-avatar-lg {
-      width: 100px; height: 100px; border-radius: 50%; flex-shrink: 0;
-      display: flex; align-items: center; justify-content: center;
-      font-family: 'Cormorant Garamond', serif;
-      font-size: 2.2rem; font-weight: 700; color: white;
-    }
-    .team-info h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.25rem; }
-    .team-role { font-size: 0.82rem; color: var(--green); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 1rem; }
-    .team-bio { font-size: 0.875rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
-    .team-awards { margin-top: 0.8rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
-    .award-badge {
-      background: var(--light-bg); border: 1px solid var(--border);
-      padding: 0.2rem 0.6rem; border-radius: 4px;
-      font-size: 0.72rem; color: var(--green-dark); font-weight: 500;
-    }
-    @media (max-width: 700px) { .team-card-full { flex-direction: column; } }
 
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { font-family:'DM Sans', sans-serif; background:var(--white); color:var(--dark); overflow-x:hidden; }
+    a { text-decoration:none; color:inherit; }
+    ul { list-style:none; }
+
+    /* ── BUTTONS ── */
+    .btn {
+      display:inline-flex; align-items:center; gap:0.4rem;
+      padding:0.75rem 1.6rem; border-radius:7px;
+      font-size:0.85rem; font-weight:600; letter-spacing:0.03em;
+      transition:all 0.22s; cursor:pointer; border:none;
+    }
+    .btn-outline { background:transparent; color:var(--spring-deep); border:1.5px solid var(--spring-dim); }
+    .btn-outline:hover { background:var(--spring-pale); }
+    .btn-sm { padding:0.5rem 1.1rem; font-size:0.8rem; }
+
+    /* ── NAV ── */
+    #main-nav {
+      position:fixed; top:0; left:0; right:0; z-index:999;
+      display:flex; align-items:center; justify-content:space-between;
+      padding:0 5%; background:rgba(255,255,255,0.97);
+      backdrop-filter:blur(14px); border-bottom:1px solid var(--border);
+      height:72px; transition:box-shadow 0.3s;
+    }
+    .nav-logo { display:flex; align-items:center; gap:0.8rem; }
+    .nav-logo img.logo-img { height:52px; width:auto; }
+    .nav-logo-wrap { display:flex; flex-direction:column; line-height:1.15; }
+    .nav-logo-text { font-family:'Cormorant Garamond', serif; font-size:1.28rem; font-weight:700; color:var(--spring-ink); white-space:nowrap; }
+    .nav-logo-text span { color:var(--spring-dim); }
+    .nav-caption { font-size:0.6rem; color:var(--spring-deep); letter-spacing:0.1em; text-transform:uppercase; font-style:italic; }
+    .nav-links { display:flex; align-items:center; gap:2rem; }
+    .nav-links a { font-size:0.85rem; font-weight:500; color:var(--gray); transition:color 0.2s; }
+    .nav-links a:not(.nav-cta):hover { color:var(--spring-deep); }
+    .nav-cta { background:var(--spring-dim); color:#fff !important; padding:0.5rem 1.2rem; border-radius:7px; font-weight:600 !important; }
+    .nav-cta:hover { background:var(--spring-deep) !important; transform:translateY(-1px); }
+
+    /* ── PAGE HERO ── */
+    .page-hero {
+      min-height:42vh;
+      display:flex; align-items:center;
+      padding:120px 5% 80px;
+      background:linear-gradient(145deg, #f0fff6 0%, #dcfce7 50%, #f0fff6 100%);
+      position:relative; overflow:hidden;
+    }
+    .page-hero-grid {
+      position:absolute; inset:0; opacity:0.45;
+      background-image:linear-gradient(rgba(74,222,128,0.13) 1px, transparent 1px),
+        linear-gradient(90deg,rgba(74,222,128,0.13) 1px, transparent 1px);
+      background-size:60px 60px;
+    }
+    .page-hero-glow {
+      position:absolute; right:-8%; top:0; width:50vw; height:100%;
+      background:radial-gradient(ellipse, rgba(74,222,128,0.2) 0%, transparent 68%);
+      pointer-events:none;
+    }
+    .page-hero-content { position:relative; z-index:2; max-width:680px; }
+    .page-hero-content .label {
+      font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+      color:var(--spring-dim); font-weight:600; margin-bottom:0.9rem;
+      display:flex; align-items:center; gap:0.5rem;
+    }
+    .page-hero-content .label::before { content:''; display:inline-block; width:20px; height:2px; background:var(--spring-dim); border-radius:2px; }
+    .page-hero-content h1 {
+      font-family:'Cormorant Garamond', serif;
+      font-size:clamp(2.4rem,5vw,3.8rem); font-weight:600;
+      color:var(--spring-ink); line-height:1.1; margin-bottom:1rem;
+    }
+    .page-hero-content h1 em { color:var(--spring-dim); font-style:normal; }
+    .page-hero-content p { font-size:0.95rem; color:var(--muted); line-height:1.85; font-weight:300; max-width:560px; }
+
+    /* ── SECTIONS ── */
+    .section { padding:90px 5%; }
+    .section-alt { background:var(--surface); }
+    .section-label {
+      font-size:0.72rem; text-transform:uppercase; letter-spacing:0.14em;
+      color:var(--spring-dim); font-weight:600; margin-bottom:0.7rem;
+      display:flex; align-items:center; gap:0.5rem;
+    }
+    .section-label::before { content:''; display:inline-block; width:20px; height:2px; background:var(--spring-dim); border-radius:2px; }
+    .section-title { font-family:'Cormorant Garamond', serif; font-size:clamp(2rem,3.5vw,2.8rem); font-weight:600; color:var(--spring-ink); line-height:1.15; margin-bottom:1rem; }
+    .section-sub { font-size:0.9rem; color:var(--muted); line-height:1.8; font-weight:300; max-width:560px; }
+    .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:3rem; align-items:flex-start; }
+    @media(max-width:900px){ .grid-2{grid-template-columns:1fr;} }
+
+    /* ── VISION CARDS ── */
     .vision-card {
-      border-left: 4px solid var(--green); padding: 1.5rem;
-      background: var(--light-bg); border-radius: 0 8px 8px 0; margin-bottom: 1rem;
+      border-left:4px solid var(--spring-dim);
+      padding:1.4rem 1.6rem;
+      background:var(--spring-pale);
+      border-radius:0 10px 10px 0;
+      margin-bottom:1rem;
     }
-    .vision-card p { font-size: 0.9rem; color: var(--gray); line-height: 1.75; font-weight: 300; }
+    .vision-card p { font-size:0.9rem; color:var(--muted); line-height:1.75; font-weight:300; }
+    .vision-card p strong { color:var(--spring-ink); font-weight:600; }
 
-    .model-row {
-      display: flex; align-items: stretch; gap: 0; margin: 2.5rem 0;
-      border-radius: 10px; overflow: hidden;
-    }
-    .model-box { flex: 1; padding: 2rem; text-align: center; }
-    .model-box:nth-child(1) { background: var(--green-dark); }
-    .model-box:nth-child(3) { background: var(--green); }
-    .model-box:nth-child(5) { background: var(--green-mid); }
-    .model-box:nth-child(2),
-    .model-box:nth-child(4) { background: var(--accent); display:flex; align-items:center; justify-content:center; flex:0 0 40px; }
-    .model-box h4 { font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: rgba(255,255,255,0.6); margin-bottom: 0.4rem; }
-    .model-box p { font-size: 1rem; font-weight: 600; color: white; }
-    .model-arrow-txt { font-size: 1.2rem; color: white; font-weight: 700; }
-    @media(max-width:600px) { .model-row { flex-direction:column; } .model-box:nth-child(2),.model-box:nth-child(4){flex:0 0 30px;} }
-
-    .quality-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.2rem; }
-    @media(max-width:700px) { .quality-grid { grid-template-columns: 1fr 1fr; } }
-    @media(max-width:450px) { .quality-grid { grid-template-columns: 1fr; } }
+    /* ── QUALITY GRID ── */
+    .quality-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:1rem; margin-top:1.5rem; }
+    @media(max-width:700px){ .quality-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:450px){ .quality-grid{grid-template-columns:1fr;} }
     .quality-item {
-      display: flex; align-items: flex-start; gap: 0.8rem;
-      padding: 1.2rem; background: white; border: 1px solid var(--border); border-radius: 8px;
+      display:flex; align-items:flex-start; gap:0.75rem;
+      padding:1.1rem; background:white; border:1px solid var(--border); border-radius:8px;
+      transition:all 0.2s;
     }
+    .quality-item:hover { border-color:var(--spring-dim); box-shadow:var(--shadow); }
     .quality-check {
-      width: 28px; height: 28px; background: var(--green); border-radius: 50%;
-      display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px;
+      width:26px; height:26px; background:var(--spring-dim); border-radius:50%;
+      display:flex; align-items:center; justify-content:center; flex-shrink:0; margin-top:1px;
     }
-    .quality-check svg { width: 14px; height: 14px; stroke: white; fill: none; stroke-width: 2.5; }
-    .quality-item p { font-size: 0.84rem; color: var(--gray); line-height: 1.5; font-weight: 400; }
+    .quality-check svg { width:13px; height:13px; stroke:white; fill:none; stroke-width:2.5; }
+    .quality-item p { font-size:0.83rem; color:var(--muted); line-height:1.55; font-weight:400; }
 
-    /* Logo image in nav */
-    .nav-logo-img {
-      height: 44px;
-      width: auto;
-      object-fit: contain;
-      display: block;
+    /* ── TEAM CARDS ── */
+    .team-card-full {
+      background:white; border:1px solid var(--border); border-radius:12px;
+      padding:2.5rem; display:flex; gap:2.2rem; align-items:flex-start;
+      transition:all 0.25s; position:relative; overflow:hidden;
     }
+    .team-card-full::before {
+      content:''; position:absolute; left:0; top:0; bottom:0; width:4px;
+      background:linear-gradient(to bottom, var(--spring-dim), var(--spring));
+    }
+    .team-card-full:hover { box-shadow:var(--shadow-lg); border-color:var(--spring); transform:translateY(-2px); }
+
+    /* ── TEAM PHOTO ── */
+    .team-avatar-lg {
+      width:100px; height:100px; border-radius:50%; flex-shrink:0;
+      object-fit:cover; object-position:top center;
+    }
+
+    .team-info h3 { font-family:'Cormorant Garamond', serif; font-size:1.25rem; font-weight:700; margin-bottom:0.3rem; color:var(--spring-ink); }
+    .team-role { font-size:0.78rem; color:var(--spring-dim); font-weight:600; text-transform:uppercase; letter-spacing:0.07em; margin-bottom:1rem; }
+    .team-bio { font-size:0.875rem; color:var(--muted); line-height:1.8; font-weight:300; }
+    .team-bio strong { color:var(--spring-ink); font-weight:600; }
+    @media(max-width:700px){ .team-card-full{flex-direction:column; padding:2rem;} }
+
+    /* ── FOOTER ── */
+    footer { background:var(--spring-ink); color:#fff; padding:60px 5% 28px; }
+    .footer-grid { display:grid; grid-template-columns:2fr 1fr 1fr 1fr; gap:3rem; padding-bottom:3rem; border-bottom:1px solid rgba(74,222,128,0.12); }
+    @media(max-width:900px){ .footer-grid{grid-template-columns:1fr 1fr;} }
+    @media(max-width:500px){ .footer-grid{grid-template-columns:1fr;} }
+    .footer-logo { font-family:'Cormorant Garamond', serif; font-size:1.6rem; font-weight:700; color:#fff; margin-bottom:0.4rem; }
+    .footer-logo span { color:var(--spring); }
+    .footer-caption { font-size:0.62rem; letter-spacing:0.12em; text-transform:uppercase; color:var(--spring); font-style:italic; margin-bottom:1rem; }
+    .footer-brand p { font-size:0.82rem; color:rgba(255,255,255,0.5); line-height:1.75; font-weight:300; }
+    .footer-col h4 { font-size:0.78rem; font-weight:600; text-transform:uppercase; letter-spacing:0.1em; color:var(--spring); margin-bottom:1.2rem; }
+    .footer-col ul { display:flex; flex-direction:column; gap:0.7rem; }
+    .footer-col ul a { font-size:0.82rem; color:rgba(255,255,255,0.5); transition:color 0.2s; }
+    .footer-col ul a:hover { color:var(--spring); }
+    .footer-bottom { display:flex; justify-content:space-between; flex-wrap:wrap; gap:0.5rem; padding-top:1.5rem; font-size:0.74rem; color:rgba(255,255,255,0.3); }
+
+    /* ── FADE UP ── */
+    .fade-up { opacity:0; transform:translateY(28px); transition:opacity 0.65s ease, transform 0.65s ease; }
+    .fade-up.visible { opacity:1; transform:translateY(0); }
   </style>
 </head>
 <body>
 
+<!-- NAV -->
 <nav id="main-nav">
   <a href="index.html" class="nav-logo">
-<img src="amicom-logo.jpeg" alt="AMICOM Logo" style="height:44px; width:auto;"/>
-    <div>
-      <span class="nav-logo-text">AMICOM<span>.</span></span>
-      <span class="nav-logo-sub">Analytics</span>
+    <img class="logo-img" src="amicom-logo.png" alt="AMICOM Logo"/>
+    <div class="nav-logo-wrap">
+      <span class="nav-logo-text">AMICOM Analytics<span>.</span></span>
+      <span class="nav-caption">Science at the core, quality at every step</span>
     </div>
   </a>
   <ul class="nav-links">
@@ -92,10 +200,12 @@
   </ul>
 </nav>
 
-<!-- HERO -->
+<!-- PAGE HERO -->
 <div class="page-hero">
-  <div class="page-hero-content">
-    <p class="section-label light" style="margin-bottom:1rem;">About AMICOM</p>
+  <div class="page-hero-grid"></div>
+  <div class="page-hero-glow"></div>
+  <div class="page-hero-content fade-up">
+    <p class="label">About AMICOM</p>
     <h1>Driven by Science,<br/><em>Committed to Quality</em></h1>
     <p>AMICOM Analytics LLP — a specialized analytical and biopharma services organization built on trust, technical excellence, and regulatory compliance.</p>
   </div>
@@ -103,7 +213,7 @@
 
 <!-- VISION & MISSION -->
 <section class="section fade-up" id="vision">
-  <div class="grid-2" style="gap:4rem; align-items:flex-start;">
+  <div class="grid-2" style="gap:4rem;">
     <div>
       <p class="section-label">Vision &amp; Mission</p>
       <h2 class="section-title">Our Purpose &amp; Values</h2>
@@ -122,7 +232,7 @@
     <div>
       <p class="section-label">Quality &amp; Compliance</p>
       <h2 class="section-title">Our Commitment</h2>
-      <div class="quality-grid" style="margin-top:1.5rem;">
+      <div class="quality-grid">
         <div class="quality-item">
           <div class="quality-check"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg></div>
           <p>Compliance with global GMP and GLP expectations</p>
@@ -152,48 +262,35 @@
   </div>
 </section>
 
-<!-- BUSINESS MODEL -->
-<section class="section section-alt fade-up" id="model">
-  <div style="text-align:center; max-width:580px; margin:0 auto 2rem;">
-    <p class="section-label">How We Work</p>
-    <h2 class="section-title">Our Business Model &amp; Relationships</h2>
-    <p class="section-sub" style="margin:0 auto;">Our business relations are built on ethics-driven, strong trust-based and transparent partnerships with long-term collaborations, scientific excellence, and regulatory compliance — ensuring reliable analytical and biopharma services that consistently meet global quality.</p>
-  </div>
-  <div class="model-row">
-    <div class="model-box"><h4>Step 1</h4><p>Understanding Scientific Needs</p></div>
-    <div class="model-box"><span class="model-arrow-txt">→</span></div>
-    <div class="model-box"><h4>Step 2</h4><p>Trusted Partnership</p></div>
-    <div class="model-box"><span class="model-arrow-txt">→</span></div>
-    <div class="model-box"><h4>Step 3</h4><p>Quality Outcomes</p></div>
-  </div>
-  <p class="section-sub" style="text-align:center; margin:0 auto;">We understand the scientific needs of our customers, build trusted partnerships and collaborations, and deliver quality outcomes for every project.</p>
-</section>
-
 <!-- TEAM -->
-<section class="section fade-up" id="team">
+<section class="section section-alt fade-up" id="team">
   <div style="text-align:center; max-width:560px; margin:0 auto 3rem;">
     <p class="section-label">Our People</p>
     <h2 class="section-title">Management Team</h2>
   </div>
   <div style="display:flex; flex-direction:column; gap:1.5rem;">
 
+    <!-- Dr. Sri Rama Krishna -->
     <div class="team-card-full fade-up">
-      <div class="team-avatar-lg" style="background:linear-gradient(135deg,#3d6b4f,#1e3d2a);">SR</div>
+      <img
+        class="team-avatar-lg"
+        src="ramakrishna.jpg"
+        alt="Dr. Sri Rama Krishna Surapureddi"
+      />
       <div class="team-info">
         <h3>Dr. Sri Rama Krishna Surapureddi, Ph.D.</h3>
         <div class="team-role">Co-Founder &amp; Director – Operations</div>
         <p class="team-bio">Dr. Sri Rama Krishna is a scientific leader with over <strong>25 years of experience in Analytical R&amp;D and Quality Control</strong> in the area of small and large molecules, peptides, bio-therapeutics and Non-Biological Complex Drugs. He developed his expertise at leading organizations including <strong>Daicel Chiral Technologies, VIMTA Labs, Sai Life Sciences, NIC, and AVRA Labs</strong>. Dr. RK holds a Ph.D. in Chemistry.<br/><br/>Dr. RK has rich experience handling large teams involved in initiating and driving collaborations, catering to analytical requirements from lead optimization to synthesis of reference compounds. He played a stellar role in designing and delivering custom-made services to customers, strengthening customer relations for increased business value proposition.</p>
-        <div class="team-awards">
-          <span class="award-badge">Excellence in Research Award – KL University (2025)</span>
-          <span class="award-badge">ELITE Award – VIMTA Labs (2018)</span>
-          <span class="award-badge">Daicel Diamond Awards for Innovation (2023–24, 2024–25)</span>
-          <span class="award-badge">External Board of Studies Member – KL University</span>
-        </div>
       </div>
     </div>
 
-    <div class="team-card-full fade-up fade-up-delay-1">
-      <div class="team-avatar-lg" style="background:linear-gradient(135deg,#4e8a65,#3d6b4f);">SY</div>
+    <!-- Dr. Sanjeeva Yakarla -->
+    <div class="team-card-full fade-up">
+      <img
+        class="team-avatar-lg"
+        src="sanjeeva.jpg"
+        alt="Dr. Sanjeeva Yakarla"
+      />
       <div class="team-info">
         <h3>Dr. Sanjeeva Yakarla, Ph.D.</h3>
         <div class="team-role">Co-Founder &amp; Director – Techno Commercial &amp; Business Development</div>
@@ -201,8 +298,13 @@
       </div>
     </div>
 
-    <div class="team-card-full fade-up fade-up-delay-2">
-      <div class="team-avatar-lg" style="background:linear-gradient(135deg,#c9a84c,#a07830);">AV</div>
+    <!-- Dr. A. Venkateshwarlu -->
+    <div class="team-card-full fade-up">
+      <img
+        class="team-avatar-lg"
+        src="venky.JPG"
+        alt="Dr. A. Venkateshwarlu"
+      />
       <div class="team-info">
         <h3>Dr. A. Venkateshwarlu, Ph.D.</h3>
         <div class="team-role">Head, Quality Management System &amp; Safety</div>
@@ -210,8 +312,13 @@
       </div>
     </div>
 
-    <div class="team-card-full fade-up fade-up-delay-3">
-      <div class="team-avatar-lg" style="background:linear-gradient(135deg,#254235,#3d6b4f);">PC</div>
+    <!-- Dr. Prashanth Chiliveri -->
+    <div class="team-card-full fade-up">
+      <img
+        class="team-avatar-lg"
+        src="prashanth.jpg"
+        alt="Dr. Prashanth Chiliveri"
+      />
       <div class="team-info">
         <h3>Dr. Prashanth Chiliveri, Ph.D.</h3>
         <div class="team-role">Head, Technical</div>
@@ -226,9 +333,11 @@
 <footer>
   <div class="footer-grid">
     <div class="footer-brand">
-      <div class="footer-logo">AMICOM<span>.</span></div>
+      <div class="footer-logo">AMICOM Analytics<span>.</span></div>
+      <div class="footer-caption">Science at the core, quality at every step</div>
       <p>AMICOM Analytics LLP is a specialized analytical and biopharma services organization supporting drug discovery, development, characterization, and regulatory submissions for biologics and NBCDs.</p>
-      <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>    </div>
+      <p style="margin-top:1rem;">2nd Floor, VS Technologies Building, Phase II, IDA Cherlapally, Hyderabad – 500 051, Telangana, India</p>
+    </div>
     <div class="footer-col">
       <h4>Quick Links</h4>
       <ul>
@@ -253,8 +362,9 @@
     <div class="footer-col">
       <h4>Contact</h4>
       <ul>
-        <li><a href="mailto:info@amicomanalytics.com">info@amicomanalytics.com</a></li>
-        <li><a href="tel:+91XXXXXXXXXX">+91-XXXXXXXXXX</a></li>
+        <li><a href="mailto:info@amicomlabs.com">info@amicomlabs.com</a></li>
+        <li><a href="tel:040-45608340">040-45608340</a></li>
+        <li style="margin-top:0.8rem; color:rgba(255,255,255,0.28); font-size:0.78rem;">AMICOM Analytics LLP<br/>IDA Cherlapally, Hyderabad<br/>Telangana 500 051, India</li>
       </ul>
     </div>
   </div>
@@ -264,6 +374,16 @@
   </div>
 </footer>
 
-<script src="main.js"></script>
+<script>
+  document.getElementById('footer-year').textContent = new Date().getFullYear();
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+  }, { threshold: 0.1 });
+  document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+  const nav = document.getElementById('main-nav');
+  window.addEventListener('scroll', () => {
+    nav.style.boxShadow = window.scrollY > 20 ? '0 2px 20px rgba(22,163,74,0.12)' : 'none';
+  });
+</script>
 </body>
 </html>
